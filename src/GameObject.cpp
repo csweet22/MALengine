@@ -12,6 +12,9 @@ GameObject::~GameObject(){
 }
 
 void GameObject::Update(){
-    // std::string msg = name + ": (" + position.x + "," + position.y + "," + position.z + ")";
-    DEBUG_LOG(name);
+    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_W, GLFW_PRESS)){
+        // std::string msg = name + ": (" + position.x + "," + position.y + "," + position.z + ")";
+        DEBUG_LOG(name);
+    }
+        
 }
