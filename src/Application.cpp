@@ -12,7 +12,7 @@ public:
     int screenH = 700;
 
     Application(){
-        DEBUG_LOG("Created Application");
+        DEBUG_LOG("Created Application"); 
     }
     
     ~Application(){
