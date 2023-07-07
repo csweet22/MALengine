@@ -2,6 +2,7 @@
 
 #include "Scene.hpp"
 #include "GameObject.hpp"
+#include "Player.hpp"
 
 
 class Application {
@@ -70,12 +71,18 @@ public:
     void SceneSetup(){
 
 
+        Player player = Player();
+        player.name = "Player";
+        player.scale = glm::vec3(0.1, 0.1, 0.1);
+        player.position = glm::vec3(0.0, 0.0, 0.0);
+
         GameObject wall = GameObject();
         wall.name = "Wall";
         wall.scale = glm::vec3(0.3, 0.1, 0.1);
         wall.position = glm::vec3(0.5, 0.1, 0.0);
 
         mainScene.addGameObject(wall);
+        mainScene.addGameObject(player);
         
         // for (auto & element : *(mainScene.getGameObjects())) 
         // {
