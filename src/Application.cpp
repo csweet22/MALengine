@@ -42,7 +42,6 @@ public:
 
         // Open a window and create its OpenGL context
         window = glfwCreateWindow( screenW, screenH, "Ash Engine", NULL, NULL);
-        InputSystem::getInstance().setWindow(window);
 
         if( window == NULL ){
             fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
@@ -70,31 +69,34 @@ public:
 
     void SceneSetup(){
 
-        GameObject testObj1;
-        testObj1.name = "Obj 1";
-        GameObject testObj2;
-        testObj2.name = "Obj 2";
 
-        mainScene.addGameObject(testObj1);
-        mainScene.addGameObject(testObj2);
+        GameObject wall = GameObject();
+        wall.name = "Wall";
+        wall.scale = glm::vec3(0.3, 0.1, 0.1);
+        wall.position = glm::vec3(0.5, 0.1, 0.0);
+
+        mainScene.addGameObject(wall);
         
-        for (auto & element : *(mainScene.getGameObjects())) 
-        {
-            DEBUG_LOG("Element Name: " + element.name);
-        }
+        // for (auto & element : *(mainScene.getGameObjects())) 
+        // {
+        //     DEBUG_LOG("Element Name: " + element.name);
+        // }
     }
 
     int Init(){
         InitGLFW();
         InitGLEW();
         InitGL();
+
+        InputSystem::getInstance().setWindow(window);
+
         SceneSetup();
 
         do{
             
-            mainScene.Update();
-
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            
+            mainScene.Update();
 
             glfwSwapBuffers(window);
             glfwPollEvents();

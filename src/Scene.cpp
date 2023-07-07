@@ -1,12 +1,9 @@
 #include "Scene.hpp"
 
 Scene::Scene(){
-    // Logger::GetInstance("CreationLog")->Log("Scene Created!");
 }
 
 Scene::~Scene(){
-    // Logger::GetInstance("CreationLog")->Log("Scene Destroyed!");
-    
 }
 
 

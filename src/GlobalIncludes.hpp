@@ -23,6 +23,8 @@
 #include <vector>
 #include <fstream>
 
+static int nextGUID = 0;
+
 #define DEBUG_LOG(x) std::cout << x << std::endl
 #define DEBUG_INIT(x) std::cout << "[INIT]: " << x << std::endl
 #define DEBUG_INFO(x) std::cout << "[INFO]: " << x << std::endl
