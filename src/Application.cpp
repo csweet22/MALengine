@@ -3,6 +3,7 @@
 #include "Scene.hpp"
 #include "Player.hpp"
 #include "DebugObject.hpp"
+#include "RenderEngine.hpp"
 
 
 class Application {
@@ -78,7 +79,7 @@ public:
         
     }
 
-    int Init(){
+    int Run(){
         InitGLFW();
         InitGLEW();
         InitGL();
