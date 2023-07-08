@@ -3,7 +3,9 @@
 #include "GlobalIncludes.hpp"
 
 class Quad {
-
+public:
+    Quad();
+    ~Quad();
 };
 
 #endif
