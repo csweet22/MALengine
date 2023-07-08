@@ -1,15 +1,14 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
-#include <vector>
-#include "GameObject.hpp"
+#include "GlobalIncludes.hpp"
 
 class Scene{
     public:
-        std::vector<GameObject> gameObjects;
+        std::vector<GameObject*> gameObjects;
         Scene();
         ~Scene();
-        std::vector<GameObject>* getGameObjects();
-        void addGameObject(GameObject obj);
+        std::vector<GameObject*>* getGameObjects();
+        void addGameObject(GameObject* obj);
         void Update();
 };
 

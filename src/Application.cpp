@@ -1,8 +1,8 @@
 #include "GlobalIncludes.hpp"
 
 #include "Scene.hpp"
-#include "GameObject.hpp"
 #include "Player.hpp"
+#include "DebugObject.hpp"
 
 
 class Application {
@@ -70,24 +70,13 @@ public:
 
     void SceneSetup(){
 
-
-        Player player = Player();
-        player.name = "Player";
-        player.scale = glm::vec3(0.1, 0.1, 0.1);
-        player.position = glm::vec3(0.0, 0.0, 0.0);
-
-        GameObject wall = GameObject();
-        wall.name = "Wall";
-        wall.scale = glm::vec3(0.3, 0.1, 0.1);
-        wall.position = glm::vec3(0.5, 0.1, 0.0);
-
-        mainScene.addGameObject(wall);
-        mainScene.addGameObject(player);
         
-        // for (auto & element : *(mainScene.getGameObjects())) 
-        // {
-        //     DEBUG_LOG("Element Name: " + element.name);
-        // }
+        GameObject* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
+        GameObject* debugObj = new DebugObject("Debug", glm::vec3(0.1), glm::vec3(0), glm::vec3(0.2, 0.1, 0.1));
+
+        mainScene.addGameObject(player);
+        mainScene.addGameObject(debugObj);
+        
     }
 
     int Init(){

@@ -1,19 +1,20 @@
 #ifndef GLOBALINCLUDES_HPP
 #define GLOBALINCLUDES_HPP
 
+
+
 // Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/ext.hpp>
 
 // Include GLEW
 #include <GL/glew.h>
 
 // Include GLFW
 #include <GLFW/glfw3.h>
-
-#include "InputSystem.hpp"
 
 // Include standard headers
 #include <stdio.h>
@@ -29,5 +30,10 @@ static int nextGUID = 0;
 #define DEBUG_INIT(x) std::cout << "[INIT]: " << x << std::endl
 #define DEBUG_INFO(x) std::cout << "[INFO]: " << x << std::endl
 #define DEBUG_ERROR(x) std::cout << "\t\t[ERROR]: " << x << std::endl
+
+#include "InputSystem.hpp"
+#include "GameObject.hpp"
+
+
 
 #endif

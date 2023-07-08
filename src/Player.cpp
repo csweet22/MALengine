@@ -1,40 +1,27 @@
-#include <string>
-#include "GlobalIncludes.hpp"
 #include "Player.hpp"
 
-Player::Player(){
+
+Player::Player(
+    std::string _name,
+    glm::vec3 _position, 
+    glm::vec3 _rotation,
+    glm::vec3 _scale){
+        DEBUG_INFO("Created Player");
+        this->name = _name;
+        this->position = _position;
+        this->rotation = _rotation;
+        this->scale = _scale;
 }
 
 Player::~Player(){
-    
+    DEBUG_INFO("Destroyed Player");
 }
 
-void Player::Draw() {
-    glColor3f(0.0, 1.0, 0.0);
+void Player::Update(){
+    DEBUG_INFO(this->ToString());
+    this->Draw();
 
-    glBegin(GL_LINES);
-        glVertex2f(position.x - scale.x, position.y - scale.y);
-        glVertex2f(position.x + scale.x, position.y - scale.y);
-
-        glVertex2f(position.x - scale.x, position.y + scale.y);
-        glVertex2f(position.x + scale.x, position.y + scale.y);
-
-        glVertex2f(position.x - scale.x, position.y + scale.y);
-        glVertex2f(position.x - scale.x, position.y - scale.y);
-
-        glVertex2f(position.x + scale.x, position.y + scale.y);
-        glVertex2f(position.x + scale.x, position.y - scale.y);
-        
-
-        glVertex2f(position.x + scale.x, position.y + scale.y);
-        glVertex2f(position.x - scale.x, position.y - scale.y);
-    
-    glEnd();
-}
-
-void Player::Update() {
-
-    float speed = 0.001;
+float speed = 0.001;
 
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_W, GLFW_PRESS)){
         position = glm::vec3(position.x, position.y + speed, position.z);
@@ -61,6 +48,34 @@ void Player::Update() {
         scale = glm::vec3(scale.x - speed, scale.y - speed, scale.z);
     }
 
-    Draw();
+}
+
+void Player::Draw() {
+    glColor3f(0.0, 1.0, 0.0);
+
+    glBegin(GL_LINES);
+        glVertex2f(position.x - scale.x, position.y - scale.y);
+        glVertex2f(position.x + scale.x, position.y - scale.y);
+
+        glVertex2f(position.x - scale.x, position.y + scale.y);
+        glVertex2f(position.x + scale.x, position.y + scale.y);
+
+        glVertex2f(position.x - scale.x, position.y + scale.y);
+        glVertex2f(position.x - scale.x, position.y - scale.y);
+
+        glVertex2f(position.x + scale.x, position.y + scale.y);
+        glVertex2f(position.x + scale.x, position.y - scale.y);
         
+
+        glVertex2f(position.x + scale.x, position.y + scale.y);
+        glVertex2f(position.x - scale.x, position.y - scale.y);
+    
+    glEnd();
+}
+
+std::string Player::ToString(){
+    return std::string("(") + std::to_string(this->guid) + " / " + (this->name) +"): \n\t" +  
+        glm::to_string(this->position) + "\n\t" +
+        glm::to_string(this->rotation) + "\n\t" +
+        glm::to_string(this->scale) + "\n\t"; 
 }

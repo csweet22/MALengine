@@ -1,13 +1,13 @@
 #include "GlobalIncludes.hpp"
 
-class Player : public GameObject {
+class DebugObject : public GameObject {
     public:
-    Player(
+    DebugObject(
         std::string name = "Default", 
         glm::vec3 position = glm::vec3(0, 0, 0), 
         glm::vec3 rotation = glm::vec3(0, 0, 0),
         glm::vec3 scale = glm::vec3(0, 0, 0));
-    ~Player();
+    ~DebugObject();
     std::string ToString();
     void Update();
     void Draw();
