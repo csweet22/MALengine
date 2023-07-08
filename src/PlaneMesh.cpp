@@ -192,8 +192,6 @@ PlaneMesh::PlaneMesh(float min, float max, float stepsize)
 
 void PlaneMesh::Draw()
 {   
-    GLuint MVPID = glGetUniformLocation(shaderID, "MVP");
-    glUniformMatrix4fv(MVPID, 1, GL_FALSE, &(cam->GetMVP())[0][0]);
 
     glColor3f(1.0, 1.0, 0.0);
     glPointSize(2.0f);
@@ -207,6 +205,9 @@ void PlaneMesh::Draw()
     glEnd();
 
     glUseProgram(shaderID);
+    
+    GLuint MVPID = glGetUniformLocation(shaderID, "MVP");
+    glUniformMatrix4fv(MVPID, 1, GL_FALSE, &(cam->GetMVP())[0][0]);
 
     glBindVertexArray(vaoID);
     glDrawElements(GL_PATCHES, numIndices, GL_UNSIGNED_INT, (void*)0);
