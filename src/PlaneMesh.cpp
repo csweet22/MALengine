@@ -187,10 +187,13 @@ PlaneMesh::PlaneMesh(float min, float max, float stepsize)
     setupTexture();
     setupVBOs();
     setupVAO();
+    DEBUG_INFO("Created Camera");
 }
 
 void PlaneMesh::Draw()
 {   
+    GLuint MVPID = glGetUniformLocation(shaderID, "MVP");
+    glUniformMatrix4fv(MVPID, 1, GL_FALSE, &(cam->GetMVP())[0][0]);
 
     glColor3f(1.0, 1.0, 0.0);
     glPointSize(2.0f);
@@ -210,9 +213,6 @@ void PlaneMesh::Draw()
     
     glBindVertexArray(0);
     glDisableVertexAttribArray(0); // Deactivate vertex position
-    glDisableVertexAttribArray(1); // Deactivate texture coords
-    glDisableVertexAttribArray(2); // Deactivate normals
-
     glUseProgram(0);                 // Deactivate the current shader program
     glBindTexture(GL_TEXTURE_2D, 0); // Unbind the current texture.
 
@@ -283,18 +283,12 @@ void PlaneMesh::setupVBOs(){
         index_buffer_data[i] = indices.at(i);
     }
 
-    // ============================
-    // CREATING VERTEX POSITION VBO
-    // ============================
     glGenBuffers(1, &positionsID);              // Generate 1 serverside buffer object
     glBindBuffer(GL_ARRAY_BUFFER, positionsID); // Bind the object to GL_ARRAY_BUFFER
     // Store data from client data to server buffer:
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind the current GL_ARRAY_BUFFER buffer
 
-    // ============
-    // CREATING EBO
-    // ============
     glGenBuffers(1, &eboID);                      // Generate 1 serverside buffer object
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID); // Bind the object to GL_ELEMENT_ARRAY_BUFFER
     // Store data from client data to server buffer:

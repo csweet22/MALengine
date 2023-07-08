@@ -83,11 +83,12 @@ public:
 
     void SceneSetup(){
 
-        GameObject* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
-        GameObject* debugObj = new DebugObject("Debug", glm::vec3(2), glm::vec3(0), glm::vec3(2, 1, 1));
-        GameObject* mesh = new PlaneMesh();
-        GameObject* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
-        GameObject* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
+        Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
+        DebugObject* debugObj = new DebugObject("Debug", glm::vec3(2), glm::vec3(0), glm::vec3(2, 1, 1));
+        PlaneMesh* mesh = new PlaneMesh();
+        mesh->cam = camera;
+        Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
+        Grid* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
 
         mainScene.addGameObject(player);
         mainScene.addGameObject(debugObj);

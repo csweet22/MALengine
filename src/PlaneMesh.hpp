@@ -14,6 +14,7 @@
 
 #include "GameObject.hpp"
 #include "GlobalIncludes.hpp"
+#include "Camera.hpp"
 
 // Class that creates Texture Objects, VBOs, VAO, for a single ply and single bmp file.
 // This also provides a draw() method for the main draw-loop to call.
@@ -50,6 +51,7 @@ public:
 	void planeMeshQuads(float min, float max, float stepsize);
     void Draw();
     void Update();
+    Camera* cam;
 };
 
 #endif
