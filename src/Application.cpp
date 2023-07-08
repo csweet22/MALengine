@@ -123,11 +123,6 @@ public:
             glLoadIdentity ();
             glLoadMatrixf(glm::value_ptr(camera->GetV() * camera->GetM()));
 
-            glColor3f(1.0, 0.0, 0.0);
-            glBegin(GL_POINT);
-                glVertex3f(0.0, 0.0, 0.0);
-            glEnd();
-
             camera->Update();
             mainScene.Update();
 

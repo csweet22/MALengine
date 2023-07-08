@@ -210,12 +210,11 @@ void PlaneMesh::Draw()
     glUniformMatrix4fv(MVPID, 1, GL_FALSE, &(cam->GetMVP())[0][0]);
 
     glBindVertexArray(vaoID);
-    glDrawElements(GL_PATCHES, numIndices, GL_UNSIGNED_INT, (void*)0);
+    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, (void*)0);
     
     glBindVertexArray(0);
     glDisableVertexAttribArray(0); // Deactivate vertex position
     glUseProgram(0);                 // Deactivate the current shader program
-    glBindTexture(GL_TEXTURE_2D, 0); // Unbind the current texture.
 
 }
 
@@ -260,41 +259,28 @@ void PlaneMesh::setupTexture(){
 }
 
 void PlaneMesh::setupVBOs(){
-    // ===================================================
-    // PARSING THEN STORING VERTEX POSITIONS IN A 1D ARRAY
-    // ===================================================
     GLfloat vertex_buffer_data[verts.size()];
-    // [x1, y1, z1, x2, y2, z2, ...]
-
     for (int i = 0; i < verts.size(); i++)
     {
         vertex_buffer_data[i] = verts.at(i);
     }
 
    
-    // ===================================================
-    // PARSING THEN STORING TRIANGLE INDICES IN A 1D ARRAY
-    // ===================================================
     GLuint index_buffer_data[indices.size()];
-    // t => tri; v => vertex
-    // [t1v1, t1v2, t1v3, t2v1, t2v2, t2v3, ...]
-
     for (int i = 0; i < indices.size(); i++)
     {
         index_buffer_data[i] = indices.at(i);
     }
 
-    glGenBuffers(1, &positionsID);              // Generate 1 serverside buffer object
-    glBindBuffer(GL_ARRAY_BUFFER, positionsID); // Bind the object to GL_ARRAY_BUFFER
-    // Store data from client data to server buffer:
+    glGenBuffers(1, &positionsID);             
+    glBindBuffer(GL_ARRAY_BUFFER, positionsID); 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind the current GL_ARRAY_BUFFER buffer
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    glGenBuffers(1, &eboID);                      // Generate 1 serverside buffer object
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID); // Bind the object to GL_ELEMENT_ARRAY_BUFFER
-    // Store data from client data to server buffer:
+    glGenBuffers(1, &eboID);                   
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID); 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index_buffer_data), index_buffer_data, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // // Unbind the current GL_ELEMENT_ARRAY_BUFFER buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); 
 }
 
 void PlaneMesh::setupVAO(){
