@@ -18,7 +18,7 @@ Player::~Player(){
 }
 
 void Player::Update(){
-    DEBUG_INFO(this->ToString());
+    // DEBUG_INFO(this->ToString());
     this->Draw();
 
 float speed = 0.001;
@@ -39,14 +39,23 @@ float speed = 0.001;
         position = glm::vec3(position.x + speed, position.y, position.z);
     }
 
+
     
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_UP, GLFW_PRESS)){
-        scale = glm::vec3(scale.x + speed, scale.y + speed, scale.z);
+    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_Q, GLFW_PRESS)){
+        position = glm::vec3(position.x, position.y, position.z - speed);
     }
     
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_DOWN, GLFW_PRESS)){
-        scale = glm::vec3(scale.x - speed, scale.y - speed, scale.z);
+    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_E, GLFW_PRESS)){
+        position = glm::vec3(position.x, position.y, position.z + speed);
     }
+    
+    // if (InputSystem::getInstance().getKeyPress(GLFW_KEY_UP, GLFW_PRESS)){
+    //     scale = glm::vec3(scale.x + speed, scale.y + speed, scale.z);
+    // }
+    
+    // if (InputSystem::getInstance().getKeyPress(GLFW_KEY_DOWN, GLFW_PRESS)){
+    //     scale = glm::vec3(scale.x - speed, scale.y - speed, scale.z);
+    // }
 
 }
 
@@ -55,21 +64,21 @@ void Player::Draw() {
     glColor3f(0.0, 1.0, 0.0);
 
     glBegin(GL_LINES);
-        glVertex2f(position.x - scale.x, position.y - scale.y);
-        glVertex2f(position.x + scale.x, position.y - scale.y);
+        glVertex3f(position.x - scale.x, position.y - scale.y, position.z);
+        glVertex3f(position.x + scale.x, position.y - scale.y, position.z);
 
-        glVertex2f(position.x - scale.x, position.y + scale.y);
-        glVertex2f(position.x + scale.x, position.y + scale.y);
+        glVertex3f(position.x - scale.x, position.y + scale.y, position.z);
+        glVertex3f(position.x + scale.x, position.y + scale.y, position.z);
 
-        glVertex2f(position.x - scale.x, position.y + scale.y);
-        glVertex2f(position.x - scale.x, position.y - scale.y);
+        glVertex3f(position.x - scale.x, position.y + scale.y, position.z);
+        glVertex3f(position.x - scale.x, position.y - scale.y, position.z);
 
-        glVertex2f(position.x + scale.x, position.y + scale.y);
-        glVertex2f(position.x + scale.x, position.y - scale.y);
+        glVertex3f(position.x + scale.x, position.y + scale.y, position.z);
+        glVertex3f(position.x + scale.x, position.y - scale.y, position.z);
         
 
-        glVertex2f(position.x + scale.x, position.y + scale.y);
-        glVertex2f(position.x - scale.x, position.y - scale.y);
+        glVertex3f(position.x + scale.x, position.y + scale.y, position.z);
+        glVertex3f(position.x - scale.x, position.y - scale.y, position.z);
     
     glEnd();
 }

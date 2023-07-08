@@ -18,7 +18,7 @@ DebugObject::~DebugObject(){
 }
 
 void DebugObject::Update(){
-    DEBUG_INFO(this->ToString());
+    // DEBUG_INFO(this->ToString());
     this->Draw();
 }
 

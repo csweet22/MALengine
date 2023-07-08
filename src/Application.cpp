@@ -3,15 +3,20 @@
 #include "Scene.hpp"
 #include "Player.hpp"
 #include "DebugObject.hpp"
-#include "RenderEngine.hpp"
+#include "PlaneMesh.hpp"
+#include "Camera.hpp"
+#include "Axes.hpp"
+#include "Grid.hpp"
+
 
 
 class Application {
 public:
     GLFWwindow* window;
+    Camera* camera;
     Scene mainScene;
-    int screenW = 700;
-    int screenH = 700;
+    int screenW = 800;
+    int screenH = screenW * 1.0 / 1.0;
 
     Application(){
         DEBUG_LOG("Created Application"); 
@@ -60,22 +65,35 @@ public:
 
     void InitGL(){
         // Dark blue background
-        glClearColor(0.2f, 0.2f, 0.3f, 0.0f);
+        glClearColor(0.3f, 0.3f, 0.4f, 0.0f);
 
         // Enable depth testing.
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
         
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
         DEBUG_INIT("OpenGL");
+    }
+
+    void InitCamera(){
+        camera = new Camera();
     }
 
     void SceneSetup(){
 
-        GameObject* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
-        GameObject* debugObj = new DebugObject("Debug", glm::vec3(0.1), glm::vec3(0), glm::vec3(0.2, 0.1, 0.1));
+        GameObject* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
+        GameObject* debugObj = new DebugObject("Debug", glm::vec3(2), glm::vec3(0), glm::vec3(2, 1, 1));
+        GameObject* mesh = new PlaneMesh();
+        GameObject* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
+        GameObject* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
 
         mainScene.addGameObject(player);
         mainScene.addGameObject(debugObj);
+        mainScene.addGameObject(mesh);
+        mainScene.addGameObject(axes);
+        mainScene.addGameObject(grid);
         
     }
 
@@ -83,6 +101,7 @@ public:
         InitGLFW();
         InitGLEW();
         InitGL();
+        InitCamera();
 
         InputSystem::getInstance().setWindow(window);
 
@@ -92,6 +111,23 @@ public:
             
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
+
+            
+            glMatrixMode ( GL_PROJECTION );
+            glLoadIdentity ();
+            glLoadMatrixf(glm::value_ptr(camera->GetP()));
+
+            
+            glMatrixMode ( GL_MODELVIEW );
+            glLoadIdentity ();
+            glLoadMatrixf(glm::value_ptr(camera->GetV() * camera->GetM()));
+
+            glColor3f(1.0, 0.0, 0.0);
+            glBegin(GL_POINT);
+                glVertex3f(0.0, 0.0, 0.0);
+            glEnd();
+
+            camera->Update();
             mainScene.Update();
 
             glfwSwapBuffers(window);
@@ -100,6 +136,8 @@ public:
 
         } while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
             glfwWindowShouldClose(window) == 0 );
+
+        delete camera;
 
         glfwTerminate();
         
