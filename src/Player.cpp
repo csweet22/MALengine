@@ -5,7 +5,7 @@ Player::Player(
     std::string _name,
     glm::vec3 _position, 
     glm::vec3 _rotation,
-    glm::vec3 _scale){
+    glm::vec3 _scale) {
         DEBUG_INFO("Created Player");
         this->name = _name;
         this->position = _position;
@@ -51,6 +51,7 @@ float speed = 0.001;
 }
 
 void Player::Draw() {
+
     glColor3f(0.0, 1.0, 0.0);
 
     glBegin(GL_LINES);

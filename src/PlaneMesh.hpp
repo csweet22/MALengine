@@ -6,6 +6,90 @@
 #ifndef PLANEMESH_HPP
 #define PLANEMESH_HPP
 
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
+#include <vector>
+#include <iostream>
+#include "shader.hpp"
+
+void loadARGB_BMP(const char *imagepath, unsigned char **data, unsigned int *width, unsigned int *height)
+{
+
+    printf("Reading image %s\n", imagepath);
+
+    // Data read from the header of the BMP file
+    unsigned char header[54];
+    unsigned int dataPos;
+    unsigned int imageSize;
+    // Actual RGBA data
+
+    // Open the file
+    FILE *file = fopen(imagepath, "rb");
+    if (!file)
+    {
+        printf("%s could not be opened. Are you in the right directory?\n", imagepath);
+        getchar();
+        return;
+    }
+
+    // Read the header, i.e. the 54 first bytes
+
+    // If less than 54 bytes are read, problem
+    if (fread(header, 1, 54, file) != 54)
+    {
+        printf("Not a correct BMP file1\n");
+        fclose(file);
+        return;
+    }
+
+    // Read the information about the image
+    dataPos = *(int *)&(header[0x0A]);
+    imageSize = *(int *)&(header[0x22]);
+    *width = *(int *)&(header[0x12]);
+    *height = *(int *)&(header[0x16]);
+    // A BMP files always begins with "BM"
+    if (header[0] != 'B' || header[1] != 'M')
+    {
+        printf("Not a correct BMP file2\n");
+        fclose(file);
+        return;
+    }
+    // Make sure this is a 32bpp file
+    // if (*(int *)&(header[0x1E]) != 3)
+    // {
+    //     printf("Not a correct BMP file3\n");
+    //     fclose(file);
+    //     return;
+    // }
+    // fprintf(stderr, "header[0x1c]: %d\n", *(int*)&(header[0x1c]));
+    // if ( *(int*)&(header[0x1C])!=32 ) {
+    //     printf("Not a correct BMP file4\n");
+    //     fclose(file);
+    //     return;
+    // }
+
+    // Some BMP files are misformatted, guess missing information
+    if (imageSize == 0)
+        imageSize = (*width) * (*height) * 4; // 4 : one byte for each Red, Green, Blue, Alpha component
+    if (dataPos == 0)
+        dataPos = 54; // The BMP header is done that way
+
+    // Create a buffer
+    *data = new unsigned char[imageSize];
+
+    if (dataPos != 54)
+    {
+        fread(header, 1, dataPos - 54, file);
+    }
+
+    // Read the actual data from the file into the buffer
+    fread(*data, 1, imageSize, file);
+
+    // Everything is in memory now, the file can be closed.
+    fclose(file);
+}
+
 
 // Class that creates Texture Objects, VBOs, VAO, for a single ply and single bmp file.
 // This also provides a draw() method for the main draw-loop to call.
@@ -267,6 +351,10 @@ public:
     // Sets up the Textures, VBOs, and VAO
     PlaneMesh(float min, float max, float stepsize)
     {
+        GLuint shader = LoadShaders("../shaders/default.fs", "../shaders/default.vs");
+
+        setShaderID(shader);
+
 		this->min = min;
 		this->max = max;
 
@@ -283,13 +371,8 @@ public:
     void draw(glm::mat4 MVP, glm::mat4 V, glm::mat4 M)
     {   
         // Get all shader uniforms
-        GLuint waterTextureLocationID = glGetUniformLocation(shaderID, "waterTexture");
-        GLuint displaceTextureLocationID = glGetUniformLocation(shaderID, "displaceTexture");
-        GLuint timeID = glGetUniformLocation(shaderID, "time");
+        // GLuint waterTextureLocationID = glGetUniformLocation(shaderID, "waterTexture");
         GLuint MVPID = glGetUniformLocation(shaderID, "MVP");
-        GLuint VID = glGetUniformLocation(shaderID, "V");
-        GLuint MID = glGetUniformLocation(shaderID, "M");
-        GLuint LightDirID = glGetUniformLocation(shaderID, "LightDir");
 
         // Use shader
         glUseProgram(shaderID);
@@ -307,12 +390,8 @@ public:
 
         // Pass all the uniforms into the shader.
         glUniformMatrix4fv(MVPID, 1, GL_FALSE, &MVP[0][0]);
-        glUniformMatrix4fv(VID, 1, GL_FALSE, &V[0][0]);
-        glUniformMatrix4fv(MID, 1, GL_FALSE, &M[0][0]);
-		glUniform1i(waterTextureLocationID, 0);
-		glUniform1i(displaceTextureLocationID, 1);
-		glUniform1f(timeID, glfwGetTime());
-		glUniform3f(LightDirID, 4, 3.0, -10.0);
+		// glUniform1i(waterTextureLocationID, 0);
+		// glUniform3f(LightDirID, 4, 3.0, -10.0);
 
 
         // Bind the VAO to draw.

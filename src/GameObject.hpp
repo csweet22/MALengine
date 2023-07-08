@@ -6,7 +6,6 @@
 class GameObject {
     public:
     GameObject() { this->guid = nextGUID++; }
-    // ~GameObject() {}
     virtual void Update() {}
     virtual std::string ToString() {}
     std::string name = "default";

@@ -70,7 +70,6 @@ public:
 
     void SceneSetup(){
 
-        
         GameObject* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
         GameObject* debugObj = new DebugObject("Debug", glm::vec3(0.1), glm::vec3(0), glm::vec3(0.2, 0.1, 0.1));
 

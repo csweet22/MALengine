@@ -1,21 +1,17 @@
 // Ash Engine Main
 
-// ===========================================================================
-// INCLUDES
-// ===========================================================================
 
 #include "GlobalIncludes.hpp"
-
-// ===========================================================================
-// HELPER FUNCTIONS AND CLASSES
-// ===========================================================================
-
 #include "Application.cpp"
 
-// ===========================================================================
-// MAIN
-// ===========================================================================
-
+// TODO: add AABB collision
+// TODO: add physics
+// TODO: add texture quad
+	// Setup a basic render pipeline
+	// setup shaders
+	// setup textures
+// TODO: setup cameras
+// TODO: imgui
 
 int main( int argc, char* argv[])
 {
