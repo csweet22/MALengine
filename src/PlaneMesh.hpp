@@ -42,7 +42,7 @@ private:
 	int numIndices; // Number of indices in the mesh
 
 public:
-    PlaneMesh(float min = -1.0f, float max = 1.0f, float stepsize = 0.1f);
+    PlaneMesh(float min = -2.0f, float max = 2.0f, float stepsize = 0.2f);
     void setupTexture();
     void setupVBOs();
     void setupVAO();
