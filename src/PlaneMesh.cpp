@@ -192,7 +192,7 @@ PlaneMesh::PlaneMesh(float min, float max, float stepsize)
 
 void PlaneMesh::Draw()
 {   
-
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     glColor3f(1.0, 1.0, 0.0);
     glPointSize(2.0f);
     glBegin(GL_POINTS);
@@ -265,22 +265,12 @@ void PlaneMesh::setupVBOs(){
         vertex_buffer_data[i] = verts.at(i);
     }
 
-    int wah = 0;
-    for(int i = 0; i < verts.size(); i += 3){
-        DEBUG_INFO(std::to_string(wah) + " VERTEX: " + std::to_string(verts.at(i)) + " " + std::to_string(verts.at(i+1)) + " " + std::to_string(verts.at(i+2)));
-        wah++;
-    }
-
-   
     GLuint index_buffer_data[indices.size()];
     for (int i = 0; i < indices.size(); i++)
     {
         index_buffer_data[i] = indices.at(i);
     }
 
-    for(int i = 0; i < indices.size(); i++){
-        DEBUG_INFO( "INDEX: " + std::to_string(indices.at(i)) );
-    }
     glGenBuffers(1, &positionsID);             
     glBindBuffer(GL_ARRAY_BUFFER, positionsID); 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
@@ -324,6 +314,11 @@ void PlaneMesh::planeMeshQuads(float min, float max, float stepsize) {
             verts.push_back(x);
             verts.push_back(0.0);
             verts.push_back(z);
+            normals.push_back(0);
+            normals.push_back(1);
+            normals.push_back(0);
+            uvs.push_back(remap(x, min, max, 0, 1.0));
+            uvs.push_back(remap(z, min, max, 0, 1.0));
         }
     }
 
@@ -345,48 +340,5 @@ void PlaneMesh::planeMeshQuads(float min, float max, float stepsize) {
         indices.push_back(i + nCols + 1);
         indices.push_back(i + 1);
     }
-
-    // float x = min;
-    // float y = 0;
-    // for (float z = min; z <= max; z += stepsize) {
-    //     verts.push_back(x);
-    //     verts.push_back(y);
-    //     verts.push_back(z);
-    //     normals.push_back(0);
-    //     normals.push_back(1);
-    //     normals.push_back(0);
-    //     uvs.push_back(remap(x, min, max, 0, 1.0));
-    //     uvs.push_back(remap(z, min, max, 0, 1.0));
-    // }
-
-    // for (float x = min+stepsize; x <= max; x += stepsize) {
-    //     for (float z = min; z <= max; z += stepsize) {
-    //         verts.push_back(x);
-    //         verts.push_back(y);
-    //         verts.push_back(z);
-    //         normals.push_back(0);   // Default normals point up (Y) for a plane
-    //         normals.push_back(1);
-    //         normals.push_back(0);
-    //         // Remap min to UVs based on vertex position.
-    //         uvs.push_back(remap(x, min, max, 0, 1.0));
-    //         uvs.push_back(remap(z, min, max, 0, 1.0));
-    //     }
-    // }
-
-
-
-    // int nCols = (max-min)/stepsize + 1;
-    // int i = 0, j = 0;
-    // for (float x = min; x < max; x += stepsize) {
-    //     j = 0;
-    //     for (float z = min; z < max; z += stepsize) {
-    //         indices.push_back(i*nCols + j);
-    //         indices.push_back(i*nCols + j + 1);
-    //         indices.push_back((i+1)*nCols + j + 1);
-    //         indices.push_back((i+1)*nCols + j);
-    //         ++j;
-    //     }
-    //     ++i;
-    // }
 }
 
