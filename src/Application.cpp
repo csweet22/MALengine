@@ -87,6 +87,11 @@ public:
         camera = new FreeCamera();
     }
 
+    void InitInput(GLFWwindow* _window){
+        InputSystem::getInstance().Init(_window);
+        DEBUG_INIT("Input");
+    }
+
     void SceneSetup(){
 
         Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
@@ -109,8 +114,8 @@ public:
         InitGLEW();
         InitGL();
         InitCamera();
+        InitInput(window);
 
-        InputSystem::getInstance().Init(window);
 
         SceneSetup();
 
