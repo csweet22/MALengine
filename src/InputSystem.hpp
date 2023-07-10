@@ -10,19 +10,31 @@ class InputSystem
             static InputSystem instance; 
             return instance;
         }
-        void setWindow(GLFWwindow* _window){
-            window = _window;
-        }
         bool getKeyPress(int KEY, int EVENT){
             return (glfwGetKey(window, KEY ) == EVENT);
+        }
+        bool getMousePress(int KEY, int EVENT){
+            return (glfwGetMouseButton(window, KEY ) == EVENT);
+        }
+        void Init(GLFWwindow* _window){
+            window = _window;
+            glfwSetCursorPosCallback(window, cursor_position_callback);
+        }
+        static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+        }
+        double GetMousePosX(){
+            double xpos, ypos;
+            glfwGetCursorPos(window, &xpos, &ypos);
+            return xpos;
+        }
+        double GetMousePosY(){
+            double xpos, ypos;
+            glfwGetCursorPos(window, &xpos, &ypos);
+            return ypos;
         }
     private:
         InputSystem() {} 
         InputSystem(InputSystem const&); 
-        // void operator=(InputSystem const&); 
-    // public:
-        // InputSystem(InputSystem const&) {}
-        // void operator=(InputSystem const&) {}
 };
 
 #endif

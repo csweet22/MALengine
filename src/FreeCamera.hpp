@@ -10,6 +10,12 @@ public:
     FreeCamera();
     ~FreeCamera();
     void Update();
+    float deltaX = 0.0;
+    float deltaY = 0.0;
+    float prevX = 0.0;
+    float prevY = 0.0;
+    float currX = 0.0;
+    float currY = 0.0;
 };
 
 #endif

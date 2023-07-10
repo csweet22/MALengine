@@ -192,7 +192,7 @@ PlaneMesh::PlaneMesh(float min, float max, float stepsize)
 
 void PlaneMesh::Draw()
 {   
-    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     glColor3f(1.0, 1.0, 0.0);
     glPointSize(2.0f);
     glBegin(GL_POINTS);

@@ -83,7 +83,8 @@ public:
     }
 
     void InitCamera(){
-        camera = new OrbitalCamera();
+        // camera = new OrbitalCamera();
+        camera = new FreeCamera();
     }
 
     void SceneSetup(){
@@ -109,7 +110,7 @@ public:
         InitGL();
         InitCamera();
 
-        InputSystem::getInstance().setWindow(window);
+        InputSystem::getInstance().Init(window);
 
         SceneSetup();
 
