@@ -8,22 +8,28 @@ OrbitalCamera::~OrbitalCamera(){
     DEBUG_INFO("Destroyed OrbitalCamera");
 }
 
+float DistanceToOrigin(glm::vec3 point){
+    return sqrt( point.x*point.x + point.y*point.y + point.z*point.z);
+}
+
 void OrbitalCamera::Update(){
 
     glm::vec3 right = glm::cross( glm::normalize(camera_dir), glm::normalize(up));
+    right = glm::normalize(right);
     glm::vec3 updown = glm::cross(glm::normalize(camera_dir), glm::normalize(right));
+    updown = glm::normalize(updown);
 
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_W, GLFW_PRESS)){
-        eye = eye - updown * speed;
+        eye = eye - updown * speed * DistanceToOrigin(eye);
     }
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_S, GLFW_PRESS)){
-        eye = eye + updown * speed;
+        eye = eye + updown * speed * DistanceToOrigin(eye);
     }
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_A, GLFW_PRESS)){
-        eye = eye - right * speed;
+        eye = eye - right * speed * DistanceToOrigin(eye);
     }
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_D, GLFW_PRESS)){
-        eye = eye + right * speed;
+        eye = eye + right * speed * DistanceToOrigin(eye);
     }
     
 
@@ -34,7 +40,7 @@ void OrbitalCamera::Update(){
         eye = eye - camera_dir * zoom_speed;
     }
 
-    
+
     V = glm::lookAt(eye, glm::vec3(0), up); 
-    camera_dir = glm::vec3(0) - eye; 
+    camera_dir = glm::normalize(glm::vec3(0) - eye); 
 }
