@@ -136,6 +136,7 @@ public:
 
             camera->Update();
             mainScene.Update();
+            // DEBUG_INFO( std::to_string( Time::getInstance().GetDeltaTime() ) );
 
             glfwSwapBuffers(window);
             glfwPollEvents();

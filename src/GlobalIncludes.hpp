@@ -32,6 +32,7 @@ static int nextGUID = 0;
 #define DEBUG_ERROR(x) std::cout << "\t\t[ERROR]: " << x << std::endl
 
 #include "InputSystem.hpp"
+#include "Time.hpp"
 #include "GameObject.hpp"
 
 
