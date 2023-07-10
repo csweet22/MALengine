@@ -83,8 +83,8 @@ public:
     }
 
     void InitCamera(){
-        // camera = new OrbitalCamera();
-        camera = new FreeCamera();
+        camera = new OrbitalCamera();
+        // camera = new FreeCamera();
     }
 
     void InitInput(GLFWwindow* _window){

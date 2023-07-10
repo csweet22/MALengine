@@ -10,6 +10,8 @@ public:
     OrbitalCamera();
     ~OrbitalCamera();
     void Update();
+    float speed = 0.002f;
+    float zoom_speed = 0.005f;
 };
 
 #endif

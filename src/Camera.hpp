@@ -17,10 +17,9 @@ public:
     glm::mat4 GetM() { return M; }
     glm::mat4 GetV() { return V; }
     glm::mat4 GetP() { return P; }
-    glm::vec3 GetCameraDir() { return camera_dir; }
     Camera();
     ~Camera();
-    glm::mat4 GetMVP() { return GetP() * GetV() * GetM(); }
+    glm::mat4 GetMVP() { return P * V * M; }
     virtual void Update();
 };
 
