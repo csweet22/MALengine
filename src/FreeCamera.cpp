@@ -33,11 +33,10 @@ void FreeCamera::Update(){
         currY = InputSystem::getInstance().GetMousePosY();
 
         if (prevX != 0 && prevY != 0) {
-            deltaX = currX - prevX;
-            deltaY = currY - prevY;
+            float deltaX = currX - prevX;
+            float deltaY = currY - prevY;
             
             
-            float rot_speed = 0.003;
 
             glm::mat4 rot_mat = glm::rotate( glm::mat4(1.0f), (float)(deltaX) * 1 * rot_speed, glm::vec3(0.0, 1.0, 0.0) );
             rot_mat = rot_mat * glm::rotate(glm::mat4(1.0f), (float)(deltaY) * 1 * rot_speed,  glm::cross(camera_dir, glm::vec3(0.0, 1.0, 0.0)) );
@@ -51,8 +50,6 @@ void FreeCamera::Update(){
         prevX = 0.0;
         prevY = 0.0;
     }
-
-    DEBUG_INFO( std::to_string(deltaX) + " " + std::to_string(deltaY));
 
     V = glm::lookAt(eye, eye + camera_dir, up); 
 
