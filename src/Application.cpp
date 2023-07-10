@@ -4,7 +4,8 @@
 #include "Player.hpp"
 #include "DebugObject.hpp"
 #include "PlaneMesh.hpp"
-#include "Camera.hpp"
+#include "OrbitalCamera.hpp"
+#include "FreeCamera.hpp"
 #include "Axes.hpp"
 #include "Grid.hpp"
 
@@ -47,6 +48,10 @@ public:
         glfwWindowHint(GLFW_SAMPLES, 4);
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, 1);
 
+        // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+        // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
         // Open a window and create its OpenGL context
         window = glfwCreateWindow( screenW, screenH, "Ash Engine", NULL, NULL);
 
@@ -78,7 +83,7 @@ public:
     }
 
     void InitCamera(){
-        camera = new Camera();
+        camera = new OrbitalCamera();
     }
 
     void SceneSetup(){
