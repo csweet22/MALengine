@@ -40,6 +40,10 @@ void OrbitalCamera::Update(){
         eye = eye - camera_dir * zoom_speed;
     }
 
+    // spherical coord calculations
+    // x = r * sin(theta) * cos(phi)
+    // y = r * sin(theta) * sin(phi)
+    // z = r * cos(theta)
 
     V = glm::lookAt(eye, glm::vec3(0), up); 
     camera_dir = glm::normalize(glm::vec3(0) - eye); 
