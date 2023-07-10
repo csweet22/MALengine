@@ -8,43 +8,50 @@ OrbitalCamera::~OrbitalCamera(){
     DEBUG_INFO("Destroyed OrbitalCamera");
 }
 
-float DistanceToOrigin(glm::vec3 point){
-    return sqrt( point.x*point.x + point.y*point.y + point.z*point.z);
-}
-
 void OrbitalCamera::Update(){
 
-    glm::vec3 right = glm::cross( glm::normalize(camera_dir), glm::normalize(up));
-    right = glm::normalize(right);
-    glm::vec3 updown = glm::cross(glm::normalize(camera_dir), glm::normalize(right));
-    updown = glm::normalize(updown);
+    double deltaTime = Time::getInstance().GetDeltaTime();
 
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_W, GLFW_PRESS)){
-        eye = eye - updown * speed * DistanceToOrigin(eye);
-    }
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_S, GLFW_PRESS)){
-        eye = eye + updown * speed * DistanceToOrigin(eye);
-    }
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_A, GLFW_PRESS)){
-        eye = eye - right * speed * DistanceToOrigin(eye);
-    }
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_D, GLFW_PRESS)){
-        eye = eye + right * speed * DistanceToOrigin(eye);
-    }
     
 
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_Q, GLFW_PRESS)){
-        eye = eye + camera_dir * zoom_speed;
-    }
-    if (InputSystem::getInstance().getKeyPress(GLFW_KEY_E, GLFW_PRESS)){
-        eye = eye - camera_dir * zoom_speed;
-    }
+	if ( InputSystem::getInstance().getKeyPress(GLFW_KEY_UP, GLFW_PRESS) ){
+		r -= zoomSpeed * deltaTime;
+	}
+	if ( InputSystem::getInstance().getKeyPress(GLFW_KEY_DOWN, GLFW_PRESS) ){
+		r += zoomSpeed * deltaTime;
+	}
 
-    // spherical coord calculations
-    // x = r * sin(theta) * cos(phi)
-    // y = r * sin(theta) * sin(phi)
-    // z = r * cos(theta)
+	if (r < 0.0) { r = 0.0; }
 
-    V = glm::lookAt(eye, glm::vec3(0), up); 
-    camera_dir = glm::normalize(glm::vec3(0) - eye); 
+
+	if ( InputSystem::getInstance().getMousePress(GLFW_MOUSE_BUTTON_LEFT, GLFW_PRESS) ){
+
+        curr_xpos = InputSystem::getInstance().GetMousePosX();
+        curr_ypos = InputSystem::getInstance().GetMousePosY();
+        
+		if (prev_xpos == NULL) {prev_xpos = curr_xpos;}
+		if (prev_ypos == NULL) {prev_ypos = curr_ypos;}
+        
+		double delta_xpos = curr_xpos - prev_xpos;
+		double delta_ypos = curr_ypos - prev_ypos;
+        
+		prev_xpos = curr_xpos;
+		prev_ypos = curr_ypos;
+        
+		theta += delta_xpos * moveSpeed * deltaTime;
+		phi += delta_ypos * moveSpeed * deltaTime;
+
+	} else {
+		prev_xpos = NULL;
+		prev_ypos = NULL;
+	}
+	
+	if (phi < -3.1415/2) { phi = -3.1415/2; }
+	if (phi > 3.1415/2) { phi = 3.1415/2; }
+
+	float newX = r * cos(phi) * cos(theta);
+	float newY = r * sin(phi);
+	float newZ = r * cos(phi) * sin(theta);
+	
+	V = glm::lookAt(glm::vec3(newX, newY, newZ), glm::vec3(0,0,0), glm::vec3(0,1,0)); 
 }
