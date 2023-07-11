@@ -7,18 +7,25 @@ LIBS = -lglfw -lGL -lGLEW -lGLU
 
 # fullFlags= -Wall -Wpedantic -Wextra -std=gnu17 -lglfw -lGL -lGLEW
 
+
+
 SOURCE_DIR = src
-# SOURCES = $(SOURCE_DIR)/main.cpp
+IMGUI_DIR = $(SOURCE_DIR)/imgui
 SOURCES = $(SOURCE_DIR)/*.cpp
+SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
+SOURCES += $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
 BININT = bin-int
 BIN = bin
-OBJS = $(addprefix $(BININT)/, $(addsuffix .o, $(basename $(notdir $(wildcard $(SOURCE_DIR)/*.cpp)))))
-
+OBJS = $(addprefix $(BININT)/, $(addsuffix .o, $(basename $(notdir $(wildcard $(SOURCES))))))
 
 default:
 	make all
 
 $(BININT)/%.o:$(SOURCE_DIR)/%.cpp
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+
+$(BININT)/%.o:$(IMGUI_DIR)/%.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 all: $(EXE)
@@ -38,5 +45,7 @@ run: $(EXE)
 
 
 echoTest:
-	@echo $(OBJS)
+	@echo sources $(SOURCES)
+	@echo \|
+	@echo objects $(OBJS)
 
