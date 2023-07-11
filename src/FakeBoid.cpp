@@ -51,7 +51,6 @@ void FakeBoid::Update(){
 
 
 void FakeBoid::Draw() {
-    glColor4f(color.x, color.y, color.z, 1.0);
 
     glm::vec3 point1 = glm::vec3( -1 * scale.x, -1 * scale.y, 0);
     glm::vec3 point2 = glm::vec3( scale.x, -1 * scale.y, 0);
@@ -63,8 +62,8 @@ void FakeBoid::Draw() {
     point2 = look * glm::vec4(point2.x, point2.y, point2.z, 1.0);
     point3 = look * glm::vec4(point3.x, point3.y, point3.z, 1.0);
 
-    glBlendFunc(GL_ONE, GL_ONE);
 
+    glColor4f(color.x / 1.5, color.y / 1.5, color.z / 1.5, 1.0);
     glBegin(GL_LINES);
         glVertex3f(position.x + point1.x, position.y + point1.y, position.z + point1.z);
         glVertex3f(position.x + point2.x, position.y + point2.y, position.z + point2.z);
@@ -80,6 +79,14 @@ void FakeBoid::Draw() {
         // glVertex3f(goal.x, goal.y, goal.z);
         // glVertex3f(goal2.x, goal2.y, goal2.z);
     
+    glEnd();
+
+    glBlendFunc(GL_ONE, GL_ONE);
+    glColor4f(color.x, color.y, color.z, 1.0);
+    glBegin(GL_TRIANGLES);
+        glVertex3f(position.x + point1.x, position.y + point1.y, position.z + point1.z);
+        glVertex3f(position.x + point2.x, position.y + point2.y, position.z + point2.z);
+        glVertex3f(position.x + point3.x, position.y + point3.y, position.z + point3.z);
     glEnd();
 
     
