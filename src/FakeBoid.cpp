@@ -20,6 +20,7 @@ FakeBoid::FakeBoid(
         this->goal = glm::vec3(random(-distance, distance), random(-distance, distance), random(-distance,distance));
         this->goal2 = glm::vec3(random(-distance, distance), random(-distance, distance), random(-distance,distance));
         this->amount = random(0.0, 1.0);
+        color = glm::vec3(random(0.0, 1.0), random(0.0, 1.0), random(0.0, 1.0));
 }
 
 FakeBoid::~FakeBoid(){
@@ -50,7 +51,7 @@ void FakeBoid::Update(){
 
 
 void FakeBoid::Draw() {
-    glColor4f(1.0, 1.0, 1.0, 1.0);
+    glColor4f(color.x, color.y, color.z, 1.0);
 
     glm::vec3 point1 = glm::vec3( -1 * scale.x, -1 * scale.y, 0);
     glm::vec3 point2 = glm::vec3( scale.x, -1 * scale.y, 0);
@@ -61,6 +62,8 @@ void FakeBoid::Draw() {
     point1 = look * glm::vec4(point1.x, point1.y, point1.z, 1.0);
     point2 = look * glm::vec4(point2.x, point2.y, point2.z, 1.0);
     point3 = look * glm::vec4(point3.x, point3.y, point3.z, 1.0);
+
+    glBlendFunc(GL_ONE, GL_ONE);
 
     glBegin(GL_LINES);
         glVertex3f(position.x + point1.x, position.y + point1.y, position.z + point1.z);
@@ -78,6 +81,9 @@ void FakeBoid::Draw() {
         // glVertex3f(goal2.x, goal2.y, goal2.z);
     
     glEnd();
+
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
