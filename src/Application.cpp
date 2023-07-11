@@ -103,12 +103,12 @@ void Application::SceneSetup(){
 
     // mainScene.addGameObject(player);
     // mainScene.addGameObject(debugObj);
-    // mainScene.addGameObject(mesh);
+    mainScene.addGameObject(mesh);
     mainScene.addGameObject(axes);
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 500;
+    int boidCount = 700;
 
     for(int i = 0; i < boidCount; i++){
         // FakeBoid* fb = ;

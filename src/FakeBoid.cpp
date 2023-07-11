@@ -58,7 +58,7 @@ void FakeBoid::Draw() {
 
     float lerpAmount = 0.01;
 
-    look = look * glm::mat4(1.0 - lerpAmount) + glm::mat4(lerpAmount) * glm::lookAt( glm::vec3(0), goal, position);
+    look = look * glm::mat4(1.0 - lerpAmount) + glm::mat4(lerpAmount) * glm::lookAt( glm::vec3(0), goal - position, position);
 
     point1 = look * glm::vec4(point1.x, point1.y, point1.z, 1.0);
     point2 = look * glm::vec4(point2.x, point2.y, point2.z, 1.0);
