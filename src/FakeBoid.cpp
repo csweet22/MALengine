@@ -29,7 +29,7 @@ FakeBoid::~FakeBoid(){
 
 void FakeBoid::Update(){
     
-    DEBUG_INFO(amount);
+    // DEBUG_INFO(amount);
     amount += 0.003;
 
     // (1 − t)^2 + 2(1 − t)t + t^2
@@ -56,7 +56,9 @@ void FakeBoid::Draw() {
     glm::vec3 point2 = glm::vec3( scale.x, -1 * scale.y, 0);
     glm::vec3 point3 = glm::vec3(0, scale.y, 0);
 
-    glm::mat4 look = glm::lookAt( glm::vec3(0), goal, position);
+    float lerpAmount = 0.01;
+
+    look = look * glm::mat4(1.0 - lerpAmount) + glm::mat4(lerpAmount) * glm::lookAt( glm::vec3(0), goal, position);
 
     point1 = look * glm::vec4(point1.x, point1.y, point1.z, 1.0);
     point2 = look * glm::vec4(point2.x, point2.y, point2.z, 1.0);

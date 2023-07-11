@@ -7,6 +7,7 @@ class FakeBoid : public GameObject {
     glm::vec3 goal;
     glm::vec3 goal2;
     glm::vec3 color;
+    glm::mat4 look = glm::mat4(1.0);
     float amount = 0.0;
     FakeBoid(
         std::string name = "Default", 
