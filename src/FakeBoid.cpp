@@ -1,5 +1,8 @@
 #include "FakeBoid.hpp"
 
+float random(float LO, float HI){
+    return LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+}
 
 FakeBoid::FakeBoid(
     std::string _name,
@@ -8,12 +11,10 @@ FakeBoid::FakeBoid(
     glm::vec3 _scale){
         DEBUG_INFO("Created FakeBoid");
         this->name = _name;
-        this->position =  glm::normalize(glm::vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50)) * glm::vec3(rand() % 5);
+        this->position =  glm::vec3(random(-1.0, 1.0), random(-1.0, 1.0), random(-1.0, 1.0));
         this->rotation = _rotation;
         this->scale = _scale;
-        this->velocity = glm::vec3(rand() % 100 - 50, rand() % 100 - 50, rand() % 100 - 50);
-        this->velocity = glm::normalize(this->velocity);
-        
+        this->velocity = glm::normalize(glm::vec3(random(-1.0, 1.0), random(-1.0, 1.0), random(-1.0, 1.0)));        
 }
 
 FakeBoid::~FakeBoid(){
@@ -25,9 +26,10 @@ void FakeBoid::Update(){
     // DEBUG_INFO( std::to_string(Time::getInstance().GetDeltaTime()) );
 
     position = position + velocity * glm::vec3(10) * glm::vec3(Time::getInstance().GetDeltaTime());
+    position = position + glm::vec3(0, sin(velocity.x) * 0.1, 0);
     // DEBUG_INFO(abs(glm::length(position)));
-    if ( abs(glm::length(position)) > 5.0f ){
-        velocity *= -1.0f;
+    if ( abs(glm::length(position)) > 4.0f ){
+        velocity = velocity * glm::vec3(-0.8f);
     }
 
     this->Draw();

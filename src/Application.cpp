@@ -108,7 +108,7 @@ void Application::SceneSetup(){
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 100;
+    int boidCount = 2000;
 
     for(int i = 0; i < boidCount; i++){
         // FakeBoid* fb = ;
