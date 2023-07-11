@@ -2,7 +2,7 @@
 
 EXE = Ash
 CC=g++
-CFLAGS= -std=c++17 -w 
+CFLAGS= -std=c++17 -w
 LIBS = -lglfw -lGL -lGLEW -lGLU
 
 # fullFlags= -Wall -Wpedantic -Wextra -std=gnu17 -lglfw -lGL -lGLEW
@@ -12,20 +12,20 @@ SOURCE_DIR = src
 SOURCES = $(SOURCE_DIR)/*.cpp
 BININT = bin-int
 BIN = bin
-OBJS = $(addsuffix .o, $(basename $(notdir $(wildcard $(SOURCE_DIR)/*.cpp))))
+OBJS = $(addprefix $(BININT)/, $(addsuffix .o, $(basename $(notdir $(wildcard $(SOURCE_DIR)/*.cpp)))))
 
 
 default:
 	make all
 
-%.o:$(SOURCE_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c -o $(BININT)/$@ $<
+$(BININT)/%.o:$(SOURCE_DIR)/%.cpp
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 all: $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
 
 $(EXE): $(OBJS)
-	$(CC) -o  $(BIN)/$@ $(addprefix $(BININT)/, $^) $(CFLAGS) $(LIBS)
+	$(CC) -o $(BIN)/$@ $^ $(CFLAGS) $(LIBS)
 
 clean:
 	rm -f $(BIN)/$(EXE)

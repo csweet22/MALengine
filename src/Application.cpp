@@ -20,7 +20,7 @@ public:
     int screenH = screenW * 1.0 / 1.0;
 
     Application(){
-        DEBUG_LOG("Created Application"); 
+        DEBUG_INFO("Application"); 
     }
     
     ~Application(){
