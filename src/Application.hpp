@@ -16,8 +16,8 @@ public:
     GLFWwindow* window;
     Camera* camera;
     Scene mainScene;
-    int screenW = 800;
-    int screenH = screenW * 1.0 / 1.0;
+    int screenH = 900;
+    int screenW = screenH * 1.3;
     Application(){ DEBUG_INIT("Application"); }
     ~Application(){}
     void InitGLEW();

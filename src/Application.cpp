@@ -56,8 +56,8 @@ void Application::InitGL(){
 }
 
 void Application::InitCamera(GLFWwindow* _window){
-    camera = new OrbitalCamera();
-    // camera = new FreeCamera();
+    // camera = new OrbitalCamera();
+    camera = new FreeCamera();
     camera->window = _window;
 }
 
