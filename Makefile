@@ -1,22 +1,19 @@
-
-
-EXE = Ash
-CC=g++
-CFLAGS= -std=c++17 -w
-LIBS = -lglfw -lGL -lGLEW -lGLU
-
-# fullFlags= -Wall -Wpedantic -Wextra -std=gnu17 -lglfw -lGL -lGLEW
-
-
-
 SOURCE_DIR = src
 IMGUI_DIR = $(SOURCE_DIR)/imgui
 SOURCES = $(SOURCE_DIR)/*.cpp
 SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
-SOURCES += $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
+SOURCES += $(IMGUI_DIR)/imgui_impl_glfw.cpp $(IMGUI_DIR)/imgui_impl_opengl3.cpp
 BININT = bin-int
 BIN = bin
 OBJS = $(addprefix $(BININT)/, $(addsuffix .o, $(basename $(notdir $(wildcard $(SOURCES))))))
+
+
+EXE = Ash
+CC=g++
+CFLAGS= -std=c++17 -w -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
+# fullFlags= -Wall -Wpedantic -Wextra -std=gnu17 -lglfw -lGL -lGLEW
+LIBS = -lglfw -lGL -lGLEW -lGLU -ldl
+
 
 default:
 	make all
@@ -27,6 +24,10 @@ $(BININT)/%.o:$(SOURCE_DIR)/%.cpp
 
 $(BININT)/%.o:$(IMGUI_DIR)/%.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+
+$(BININT)/%.o:$(IMGUI_DIR)/backends/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 all: $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
