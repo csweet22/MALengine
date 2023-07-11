@@ -9,7 +9,8 @@
 // TODO: add texture quad
 	// Setup a basic render pipeline
 	// setup textures
-// TODO: setup cameras
+// TODO: setup cameras 
+	// Let me change camera types dynamically
 // TODO: imgui
 // TODO: mesh loader
 // TODO: Figure file structure
