@@ -14,10 +14,10 @@ void OrbitalCamera::Update(){
 
     
 
-	if ( InputSystem::getInstance().getKeyPress(GLFW_KEY_UP, GLFW_PRESS) ){
+	if ( InputSystem::getInstance().getKeyPress(GLFW_KEY_W, GLFW_PRESS) ){
 		r -= zoomSpeed * deltaTime;
 	}
-	if ( InputSystem::getInstance().getKeyPress(GLFW_KEY_DOWN, GLFW_PRESS) ){
+	if ( InputSystem::getInstance().getKeyPress(GLFW_KEY_S, GLFW_PRESS) ){
 		r += zoomSpeed * deltaTime;
 	}
 
