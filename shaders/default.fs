@@ -5,7 +5,8 @@ out vec4 color;
 
 
 in vec3 test;
+in vec2 uvs_vs;
 
 void main(){
-    color = vec4(test.r, 1.0, test.b, 1.0);
+    color = vec4(uvs_vs.r, uvs_vs.g, 0.0, 1.0);
 }

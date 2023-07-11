@@ -193,16 +193,16 @@ PlaneMesh::PlaneMesh(float min, float max, float stepsize)
 void PlaneMesh::Draw()
 {   
     // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    glColor3f(1.0, 1.0, 0.0);
-    glPointSize(2.0f);
-    glBegin(GL_POINTS);
-    for (int i = 0; i < verts.size(); i += 3)
-    {
-        std::string msg = std::to_string(verts.at(i)) + " " + std::to_string(verts.at(i+1)) + " " + std::to_string(verts.at(i+2));
-        glVertex3f(verts.at(i), verts.at(i+1), verts.at(i+2));
-        // DEBUG_INFO(msg);
-    }
-    glEnd();
+    // glColor3f(1.0, 1.0, 0.0);
+    // glPointSize(2.0f);
+    // glBegin(GL_POINTS);
+    // for (int i = 0; i < verts.size(); i += 3)
+    // {
+    //     std::string msg = std::to_string(verts.at(i)) + " " + std::to_string(verts.at(i+1)) + " " + std::to_string(verts.at(i+2));
+    //     glVertex3f(verts.at(i), verts.at(i+1), verts.at(i+2));
+    //     // DEBUG_INFO(msg);
+    // }
+    // glEnd();
 
     glUseProgram(shaderID);
     
@@ -214,6 +214,7 @@ void PlaneMesh::Draw()
     
     glBindVertexArray(0);
     glDisableVertexAttribArray(0); // Deactivate vertex position
+    glDisableVertexAttribArray(1); // Deactivate vertex position
     glUseProgram(0);                 // Deactivate the current shader program
 
 }
@@ -265,6 +266,13 @@ void PlaneMesh::setupVBOs(){
         vertex_buffer_data[i] = verts.at(i);
     }
 
+    
+    GLfloat uv_buffer_data[uvs.size()];
+    for (int i = 0; i < uvs.size(); i++)
+    {
+        uv_buffer_data[i] = uvs.at(i);
+    }
+
     GLuint index_buffer_data[indices.size()];
     for (int i = 0; i < indices.size(); i++)
     {
@@ -274,6 +282,11 @@ void PlaneMesh::setupVBOs(){
     glGenBuffers(1, &positionsID);             
     glBindBuffer(GL_ARRAY_BUFFER, positionsID); 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glGenBuffers(1, &texCoordID);             
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordID); 
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uv_buffer_data), uv_buffer_data, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &eboID);                   
@@ -291,6 +304,10 @@ void PlaneMesh::setupVAO(){
     glBindBuffer(GL_ARRAY_BUFFER, positionsID);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, (GLvoid *)0);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordID);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, (GLvoid *)0);
 
     glBindVertexArray(0);            
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
