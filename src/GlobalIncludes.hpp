@@ -23,6 +23,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
 
 static int nextGUID = 0;
 

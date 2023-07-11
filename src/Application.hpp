@@ -8,6 +8,7 @@
 #include "FreeCamera.hpp"
 #include "Axes.hpp"
 #include "Grid.hpp"
+#include "FakeBoid.hpp"
 
 
 

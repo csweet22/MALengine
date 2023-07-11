@@ -106,10 +106,22 @@ void Application::SceneSetup(){
     mainScene.addGameObject(mesh);
     mainScene.addGameObject(axes);
     mainScene.addGameObject(grid);
+
+
+    int boidCount = 100;
+
+    for(int i = 0; i < boidCount; i++){
+        // FakeBoid* fb = ;
+        mainScene.addGameObject(new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.2)));
+    }
+
     
 }
 
 int Application::Run(){
+
+    srand (time(NULL));
+
     InitGLFW();
     InitImGui(window);
     InitGLEW();
@@ -119,7 +131,7 @@ int Application::Run(){
 
     SceneSetup();
 
-    
+        
 
     do{
 
@@ -129,7 +141,7 @@ int Application::Run(){
         ImGui::NewFrame();
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (true)
+        if (show_demo_window)
             ImGui::ShowDemoWindow(&show_demo_window);
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
@@ -190,6 +202,8 @@ int Application::Run(){
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        Time::getInstance().UpdateDeltaTime();
 
 
     } while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&

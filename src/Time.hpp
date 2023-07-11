@@ -10,13 +10,16 @@ class Time
             return instance;
         }
         double GetDeltaTime(){            
-            double currentTime = glfwGetTime();
-            static double lastTime = glfwGetTime();
-            double deltaTime = (currentTime - lastTime);
-            lastTime = currentTime;
             return deltaTime;
         }
+        void UpdateDeltaTime(){
+            double currentTime = glfwGetTime();
+            static double lastTime = glfwGetTime();
+            deltaTime = (currentTime - lastTime);
+            lastTime = currentTime;
+        }
     private:
+        double deltaTime = 0;
         Time() {} 
         Time(Time const&); 
 };
