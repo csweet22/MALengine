@@ -18,6 +18,11 @@ public:
     Scene mainScene;
     int screenH = 900;
     int screenW = screenH * 1.3;
+    
+    bool show_demo_window = true;
+    bool show_another_window = false;    
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
     Application(){ DEBUG_INIT("Application"); }
     ~Application(){}
     void InitGLEW();

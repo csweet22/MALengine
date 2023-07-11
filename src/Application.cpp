@@ -1,5 +1,11 @@
 #include "Application.hpp"
 
+void framebuffer_size_callback(GLFWwindow *_window, int width, int height){
+    int vpSize[2];
+    glfwGetFramebufferSize(_window, &vpSize[0], &vpSize[1]);
+    glViewport(0, 0, vpSize[0], vpSize[1]);
+}
+
 void Application::InitGLEW(){
     // Initialize GLEW
     glewExperimental = true; // Needed for core profile
@@ -67,8 +73,23 @@ void Application::InitInput(GLFWwindow* _window){
 }
 
 void Application::InitImGui(GLFWwindow* _window){
-    
+    const char* glsl_version = "#version 400";
+    // // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
+    // // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+    // //ImGui::StyleColorsLight();
+
+    // // Setup Platform/Renderer backends
+    ImGui_ImplGlfw_InitForOpenGL(_window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
 void Application::SceneSetup(){
@@ -88,51 +109,21 @@ void Application::SceneSetup(){
     
 }
 
-void framebuffer_size_callback(GLFWwindow *_window, int width, int height){
-    int vpSize[2];
-    glfwGetFramebufferSize(_window, &vpSize[0], &vpSize[1]);
-    glViewport(0, 0, vpSize[0], vpSize[1]);
-}
-
 int Application::Run(){
     InitGLFW();
-    
-    
-    const char* glsl_version = "#version 400";
-    // // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-    // // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    // //ImGui::StyleColorsLight();
-
-    // // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
-    
-    // Our state
-    bool show_demo_window = true;
-    bool show_another_window = false;    
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
+    InitImGui(window);
     InitGLEW();
     InitGL();
     InitCamera(window);
     InitInput(window);
 
-
     SceneSetup();
 
     
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     do{
 
-// Start the Dear ImGui frame
+        // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -160,7 +151,7 @@ int Application::Run(){
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
 
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
 
@@ -193,12 +184,8 @@ int Application::Run(){
         // DEBUG_INFO( std::to_string( Time::getInstance().GetDeltaTime() ) );
 
         
-        // Rendering
+        // Rendering Imgui
         ImGui::Render();
-        // int display_w, display_h;
-        // glfwGetFramebufferSize(window, &display_w, &display_h);
-        // glViewport(0, 0, display_w, display_h);
-        // glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
