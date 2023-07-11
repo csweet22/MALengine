@@ -2,7 +2,9 @@
 
 FreeCamera::FreeCamera(){
     DEBUG_INFO("Created FreeCamera");
-    camera_dir = glm::vec3(0, 0, -1.0); 
+    eye = glm::vec3(5.0);
+    up = glm::vec3(0, 1.0, 0);
+    camera_dir = glm::vec3(0) - eye;
 }
 
 FreeCamera::~FreeCamera(){
@@ -51,6 +53,13 @@ void FreeCamera::Update(){
         prevY = 0.0;
     }
 
-    V = glm::lookAt(eye, eye + camera_dir, up); 
+    
+    int vpSize[2];
+    glfwGetFramebufferSize(window, &vpSize[0], &vpSize[1]);
+
+	float newaspect = (float)vpSize[0] / (float)vpSize[1];
+
+    P = glm::perspective(defaultFov, newaspect, 0.001f, 1000.0f);
+	V = glm::lookAt(eye, eye + camera_dir, glm::vec3(0,1,0)); 
 
 }

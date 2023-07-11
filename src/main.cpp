@@ -2,7 +2,7 @@
 
 
 #include "GlobalIncludes.hpp"
-#include "Application.cpp"
+#include "Application.hpp"
 
 // TODO: add AABB collision
 // TODO: add physics
@@ -14,6 +14,7 @@
 // TODO: mesh loader
 // TODO: Figure file structure
 // TODO FUTURE: compute shader
+// TODO: Make it so window resize works properly
 
 int main( int argc, char* argv[])
 {
