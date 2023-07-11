@@ -1,6 +1,10 @@
 #ifndef INPUTSYSTEM_HPP
 #define INPUTSYSTEM_HPP
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+
 class InputSystem
 {
     public:
@@ -21,6 +25,7 @@ class InputSystem
             glfwSetCursorPosCallback(window, cursor_position_callback);
         }
         static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+            ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
         }
         double GetMousePosX(){
             double xpos, ypos;
