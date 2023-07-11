@@ -101,18 +101,18 @@ void Application::SceneSetup(){
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
     Grid* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
 
-    mainScene.addGameObject(player);
-    mainScene.addGameObject(debugObj);
-    mainScene.addGameObject(mesh);
+    // mainScene.addGameObject(player);
+    // mainScene.addGameObject(debugObj);
+    // mainScene.addGameObject(mesh);
     mainScene.addGameObject(axes);
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 2000;
+    int boidCount = 500;
 
     for(int i = 0; i < boidCount; i++){
         // FakeBoid* fb = ;
-        mainScene.addGameObject(new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.2)));
+        mainScene.addGameObject(new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05)));
     }
 
     
