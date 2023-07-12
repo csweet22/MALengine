@@ -8,6 +8,7 @@
 	// TODO: add AABB collision
 // Setup a basic render pipeline
 	// TODO: mesh loader
+	// TODO: add primitives
 	// TODO: add texture quad
 	// setup textures
 	// TODO FUTURE: compute shader
