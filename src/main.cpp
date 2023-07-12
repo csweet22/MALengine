@@ -14,6 +14,7 @@
 	// TODO FUTURE: compute shader
 // TODO: imgui abstract it
 // TODO: make imgui scene hierarchy show parents and children
+// TODO: enabled is broken for children
 
 int main( int argc, char* argv[])
 {
