@@ -4,18 +4,14 @@
 #include "GlobalIncludes.hpp"
 #include "Application.hpp"
 
-// TODO: add AABB collision
 // TODO: add physics
-// TODO: add texture quad
-	// Setup a basic render pipeline
+	// TODO: add AABB collision
+// Setup a basic render pipeline
+	// TODO: mesh loader
+	// TODO: add texture quad
 	// setup textures
-// TODO: setup cameras 
-	// Let me change camera types dynamically
-// TODO: imgui
-// TODO: mesh loader
-// TODO: Figure file structure
-// TODO FUTURE: compute shader
-// TODO: Make it so window resize works properly
+	// TODO FUTURE: compute shader
+// TODO: imgui abstract it
 
 int main( int argc, char* argv[])
 {
