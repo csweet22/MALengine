@@ -103,7 +103,8 @@ void Application::SceneSetup(){
 
     Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
     DebugObject* debugObj = new DebugObject("Debug", glm::vec3(0), glm::vec3(0), glm::vec3(0.4));
-    mesh = new PlaneMesh(-4.0, 4.0, 0.2);
+    // mesh = new PlaneMesh(-4.0, 4.0, 0.2);
+    mesh = new SphereMesh(4, 32, 32);
     mesh->cam = camera;
     mesh->name = "Plane Mesh";
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));

@@ -4,6 +4,7 @@
 #include "Player.hpp"
 #include "DebugObject.hpp"
 #include "PlaneMesh.hpp"
+#include "SphereMesh.hpp"
 #include "OrbitalCamera.hpp"
 #include "FreeCamera.hpp"
 #include "Axes.hpp"
@@ -22,7 +23,7 @@ public:
     int screenH = 900;
     int screenW = screenH * 1.3;
     
-    PlaneMesh* mesh;
+    SphereMesh* mesh;
 
     bool show_demo_window = true;
     bool show_another_window = false;    
