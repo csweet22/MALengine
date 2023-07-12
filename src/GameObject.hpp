@@ -26,6 +26,10 @@ class GameObject {
     int guid;
     bool enabled = true;
     GameObject* parent = nullptr;
+    void SetParent(GameObject* newParent){
+        this->parent = newParent;
+        this->parent->children.emplace_back(this);
+    }
     std::vector<GameObject*> children;
 
 };

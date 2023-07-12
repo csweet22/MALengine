@@ -122,13 +122,11 @@ void Application::SceneSetup(){
 
     for(int i = 0; i < boidCount; i++){
         FakeBoid* fb = new FakeBoid("Boyd!" + std::to_string(i), glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
-        fb->parent = debugObj;
-        debugObj->children.emplace_back(fb);
+        fb->SetParent(debugObj);
         mainScene.addGameObject(fb);
         
         FakeBoid* fb2 = new FakeBoid("Boyd!" + std::to_string(i + boidCount), glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
-        fb2->parent = fb;
-        fb->children.emplace_back(fb2);
+        fb2->SetParent(fb);
         mainScene.addGameObject(fb2);
     }
 
