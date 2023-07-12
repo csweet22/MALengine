@@ -118,17 +118,44 @@ void Application::SceneSetup(){
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 500;
+    int boidCount = 3;
 
     for(int i = 0; i < boidCount; i++){
-        FakeBoid* fb = new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
-        // fb->SetParent(debugObj);
+        FakeBoid* fb = new FakeBoid("Boyd!" + std::to_string(i), glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
         fb->parent = debugObj;
         debugObj->children.emplace_back(fb);
         mainScene.addGameObject(fb);
+        
+        FakeBoid* fb2 = new FakeBoid("Boyd!" + std::to_string(i + boidCount), glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
+        fb2->parent = fb;
+        debugObj->children.emplace_back(fb2);
+        mainScene.addGameObject(fb2);
     }
 
     
+}
+
+void recursiveTreeFill(GameObject* currentObject){
+    // if (currentObject->parent != nullptr){
+        for(auto & child : currentObject->children){
+            if (ImGui::TreeNode(child->name.c_str()))
+            {
+                ImGui::Text("Enabled:");
+                ImGui::SameLine();
+                ImGui::Checkbox("Another Window", &(child->enabled));
+                ImGui::TreePop();
+            }
+        }
+
+        
+        for(auto & child : currentObject->children){
+            recursiveTreeFill(child);
+        }
+
+        
+
+    // }
+     
 }
 
 int Application::Run(){
@@ -164,11 +191,9 @@ int Application::Run(){
             pressed = 1;
         }
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         if (show_demo_window)
             ImGui::ShowDemoWindow(&show_demo_window);
 
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
             static float f = 0.0f;
             static int counter = 0;
@@ -189,19 +214,40 @@ int Application::Run(){
 
             if (ImGui::TreeNode("Basic trees"))
             {
+                GameObject* currObject = mainScene.getGameObjects()->at(0);
+                std::vector<GameObject*> rootObjects;
+                
                 for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
                 {
                     if (i == 0)
                         ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 
-                    if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
-                    {
-                        ImGui::Text("Enabled:");
-                        ImGui::SameLine();
-                        ImGui::Checkbox("Another Window", &(mainScene.getGameObjects()->at(i)->enabled));
-                        ImGui::TreePop();
+                    if(mainScene.getGameObjects()->at(i)->parent == nullptr){
+                        if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
+                        {
+                            ImGui::Text("Enabled:");
+                            ImGui::SameLine();
+                            ImGui::Checkbox("Another Window", &(mainScene.getGameObjects()->at(i)->enabled));
+                            recursiveTreeFill(mainScene.getGameObjects()->at(i));
+                            ImGui::TreePop();
+                        }
                     }
+
                 }
+
+                // for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
+                // {
+                //     if (i == 0)
+                //         ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+
+                //     if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
+                //     {
+                //         ImGui::Text("Enabled:");
+                //         ImGui::SameLine();
+                //         ImGui::Checkbox("Another Window", &(mainScene.getGameObjects()->at(i)->enabled));
+                //         ImGui::TreePop();
+                //     }
+                // }
                 ImGui::TreePop();
             }
 
@@ -209,15 +255,6 @@ int Application::Run(){
             ImGui::End();
         }
 
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
-            ImGui::End();
-        }
 
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
