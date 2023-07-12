@@ -23,7 +23,7 @@ public:
     int screenH = 900;
     int screenW = screenH * 1.3;
     
-    SphereMesh* mesh;
+    PlaneMesh* mesh;
 
     bool show_demo_window = true;
     bool show_another_window = false;    
