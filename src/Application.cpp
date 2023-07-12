@@ -62,8 +62,15 @@ void Application::InitGL(){
 }
 
 void Application::InitCamera(GLFWwindow* _window){
-    camera = new OrbitalCamera();
-    // camera = new FreeCamera();
+    Camera* fc = new FreeCamera();
+    fc->window = _window;
+    cameraList.emplace_back(fc);
+
+    Camera* oc = new OrbitalCamera();
+    oc->window = _window;
+    cameraList.emplace_back(oc);
+    
+    camera = cameraList.at(camIndex);
     camera->window = _window;
 }
 
@@ -144,6 +151,16 @@ int Application::Run(){
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        static int pressed = 1;
+
+        if (InputSystem::getInstance().getKeyPress(GLFW_KEY_R, GLFW_PRESS) && pressed){
+            pressed = 0;
+            camera = cameraList.at((++camIndex) % cameraList.size());
+        }
+        if(InputSystem::getInstance().getKeyPress(GLFW_KEY_R, GLFW_RELEASE)){
+            pressed = 1;
+        }
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         if (show_demo_window)

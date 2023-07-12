@@ -16,6 +16,8 @@ class Application {
 public:
     GLFWwindow* window;
     Camera* camera;
+    std::vector<Camera*> cameraList;
+    int camIndex = 0;
     Scene mainScene;
     int screenH = 900;
     int screenW = screenH * 1.3;

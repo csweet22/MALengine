@@ -13,6 +13,7 @@
 	// setup textures
 	// TODO FUTURE: compute shader
 // TODO: imgui abstract it
+// TODO: make imgui scene hierarchy show parents and children
 
 int main( int argc, char* argv[])
 {
