@@ -9,7 +9,7 @@ FakeBoid::FakeBoid(
     glm::vec3 _position, 
     glm::vec3 _rotation,
     glm::vec3 _scale){
-        DEBUG_INFO("Created FakeBoid");
+        // DEBUG_INFO("Created FakeBoid");
         this->name = _name;
         this->position =  glm::vec3(random(-1.0, 1.0), random(-1.0, 1.0), random(-1.0, 1.0));
         startPos = position;
@@ -28,7 +28,8 @@ FakeBoid::~FakeBoid(){
 }
 
 void FakeBoid::Update(){
-    
+    if (!enabled) {return;}
+
     // DEBUG_INFO(amount);
     amount += 0.003;
 

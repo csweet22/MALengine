@@ -9,6 +9,6 @@ class Axes : public GameObject {
         glm::vec3 scale = glm::vec3(0, 0, 0));
     ~Axes();
     std::string ToString();
-    void Update();
+    void Update() override;
     void Draw();
 };

@@ -13,6 +13,7 @@ class GameObject {
     glm::vec3 rotation = glm::vec3(0, 0, 0);
     glm::vec3 scale = glm::vec3(0, 0, 0);
     int guid;
+    bool enabled = true;
 
 };
 

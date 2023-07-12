@@ -208,6 +208,9 @@ void PlaneMesh::Draw()
     
     GLuint MVPID = glGetUniformLocation(shaderID, "MVP");
     glUniformMatrix4fv(MVPID, 1, GL_FALSE, &(cam->GetMVP())[0][0]);
+    
+    GLuint timeID = glGetUniformLocation(shaderID, "time");
+    glUniform1f(timeID, Time::getInstance().GetTime());
 
     glBindVertexArray(vaoID);
     glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, (void*)0);
@@ -220,6 +223,7 @@ void PlaneMesh::Draw()
 }
 
 void PlaneMesh::Update(){
+    if (!enabled) {return;}
 
     this->Draw();
 }

@@ -62,8 +62,8 @@ void Application::InitGL(){
 }
 
 void Application::InitCamera(GLFWwindow* _window){
-    // camera = new OrbitalCamera();
-    camera = new FreeCamera();
+    camera = new OrbitalCamera();
+    // camera = new FreeCamera();
     camera->window = _window;
 }
 
@@ -96,10 +96,12 @@ void Application::SceneSetup(){
 
     Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
     DebugObject* debugObj = new DebugObject("Debug", glm::vec3(2), glm::vec3(0), glm::vec3(2, 1, 1));
-    PlaneMesh* mesh = new PlaneMesh();
+    PlaneMesh* mesh = new PlaneMesh(-4.0, 4.0, 0.2);
     mesh->cam = camera;
+    mesh->name = "Plane Mesh";
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
     Grid* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
+    axes->enabled = false;
 
     // mainScene.addGameObject(player);
     // mainScene.addGameObject(debugObj);
@@ -108,7 +110,7 @@ void Application::SceneSetup(){
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 700;
+    int boidCount = 0;
 
     for(int i = 0; i < boidCount; i++){
         // FakeBoid* fb = ;
@@ -162,6 +164,24 @@ int Application::Run(){
                 counter++;
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
+
+            if (ImGui::TreeNode("Basic trees"))
+            {
+                for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
+                {
+                    if (i == 0)
+                        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+
+                    if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
+                    {
+                        ImGui::Text("Enabled:");
+                        ImGui::SameLine();
+                        ImGui::Checkbox("Another Window", &(mainScene.getGameObjects()->at(i)->enabled));
+                        ImGui::TreePop();
+                    }
+                }
+                ImGui::TreePop();
+            }
 
             // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
