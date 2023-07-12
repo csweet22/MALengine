@@ -104,17 +104,18 @@ void Application::SceneSetup(){
     axes->enabled = false;
 
     // mainScene.addGameObject(player);
-    // mainScene.addGameObject(debugObj);
+    mainScene.addGameObject(debugObj);
     mainScene.addGameObject(mesh);
     mainScene.addGameObject(axes);
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 0;
+    int boidCount = 700;
 
     for(int i = 0; i < boidCount; i++){
-        // FakeBoid* fb = ;
-        mainScene.addGameObject(new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05)));
+        FakeBoid* fb = new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
+        fb->parent = debugObj;
+        mainScene.addGameObject(fb);
     }
 
     

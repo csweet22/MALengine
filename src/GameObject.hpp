@@ -14,6 +14,8 @@ class GameObject {
     glm::vec3 scale = glm::vec3(0, 0, 0);
     int guid;
     bool enabled = true;
+    GameObject* parent;
+    std::vector<GameObject*> children;
 
 };
 
