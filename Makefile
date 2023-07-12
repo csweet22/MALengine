@@ -6,11 +6,12 @@ SOURCES += $(IMGUI_DIR)/imgui_impl_glfw.cpp $(IMGUI_DIR)/imgui_impl_opengl3.cpp
 BININT = bin-int
 BIN = bin
 OBJS = $(addprefix $(BININT)/, $(addsuffix .o, $(basename $(notdir $(wildcard $(SOURCES))))))
+DEPENDS = $(addprefix $(BININT)/, $(addsuffix .d, $(basename $(notdir $(wildcard $(SOURCES))))))
 
 
 EXE = Ash
-CC=g++
-CFLAGS= -std=c++17 -w -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
+CXX=g++
+CXXFLAGS= -std=c++17 -w -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
 # fullFlags= -Wall -Wpedantic -Wextra -std=gnu17 -lglfw -lGL -lGLEW
 LIBS = -lglfw -lGL -lGLEW -lGLU -ldl
 
@@ -18,12 +19,14 @@ LIBS = -lglfw -lGL -lGLEW -lGLU -ldl
 default:
 	make all
 
+-include $(BININT)/$(DEPENDS)
+
 $(BININT)/%.o:$(SOURCE_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $< -MMD -MP 
 
 
 $(BININT)/%.o:$(IMGUI_DIR)/%.cpp
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 
 $(BININT)/%.o:$(IMGUI_DIR)/backends/%.cpp
@@ -33,20 +36,19 @@ all: $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
 
 $(EXE): $(OBJS)
-	$(CC) -o $(BIN)/$@ $^ $(CFLAGS) $(LIBS)
+	$(CXX) -o $(BIN)/$@ $^ $(CXXFLAGS) $(LIBS)
 
 clean:
-	rm -f $(BIN)/$(EXE)
-	rm -f $(BININT)/*.o
-	rm -f *.o
-	rm -f $(SOURCE_DIR)/*.o
+	rm -f $(BININT)/*.d $(BININT)/*.o
 
 run: $(EXE)
 	$(BIN)/$(EXE)
 
 
-echoTest:
+test:
 	@echo sources $(SOURCES)
 	@echo \|
 	@echo objects $(OBJS)
+	@echo \|
+	@echo depends $(DEPENDS)
 
