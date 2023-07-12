@@ -28,7 +28,7 @@ FakeBoid::~FakeBoid(){
 }
 
 void FakeBoid::Update(){
-    if (!enabled) {return;}
+    if (!CheckEnabled()) {return;}
 
     // DEBUG_INFO(amount);
     amount += 0.003;

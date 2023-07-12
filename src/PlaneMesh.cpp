@@ -223,7 +223,7 @@ void PlaneMesh::Draw()
 }
 
 void PlaneMesh::Update(){
-    if (!enabled) {return;}
+    if (!CheckEnabled()) {return;}
 
     this->Draw();
 }

@@ -101,7 +101,7 @@ void Application::SceneSetup(){
     mesh->name = "Plane Mesh";
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
     Grid* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
-    axes->enabled = false;
+    // axes->enabled = false;
 
     // mainScene.addGameObject(player);
     mainScene.addGameObject(debugObj);
@@ -114,7 +114,8 @@ void Application::SceneSetup(){
 
     for(int i = 0; i < boidCount; i++){
         FakeBoid* fb = new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
-        fb->parent = debugObj;
+        // fb->SetParent(debugObj);
+        fb->parent = &(*debugObj);
         mainScene.addGameObject(fb);
     }
 

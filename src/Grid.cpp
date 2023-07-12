@@ -18,7 +18,7 @@ Grid::~Grid(){
 }
 
 void Grid::Update(){
-    if(!enabled) {return;}
+    if (!CheckEnabled()) {return;}
     // DEBUG_INFO(this->ToString());
     this->Draw();
 }

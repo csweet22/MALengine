@@ -6,7 +6,18 @@
 class GameObject {
     public:
     GameObject() { this->guid = nextGUID++; }
-    virtual void Update() {}
+    virtual void Update() { }
+    bool CheckEnabled() { 
+        if (parent != nullptr){
+            if(!(parent->enabled)){
+                return false;
+            }
+        }
+        if (!enabled){
+            return false;
+        }
+        return true;
+    }
     virtual std::string ToString() {}
     std::string name = "default";
     glm::vec3 position = glm::vec3(0, 0, 0);
@@ -14,7 +25,7 @@ class GameObject {
     glm::vec3 scale = glm::vec3(0, 0, 0);
     int guid;
     bool enabled = true;
-    GameObject* parent;
+    GameObject* parent = nullptr;
     std::vector<GameObject*> children;
 
 };

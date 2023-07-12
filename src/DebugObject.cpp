@@ -18,7 +18,7 @@ DebugObject::~DebugObject(){
 }
 
 void DebugObject::Update(){
-        if (!enabled) {return;}
+    if (!CheckEnabled()) {return;}
 
     // DEBUG_INFO(this->ToString());
     this->Draw();
