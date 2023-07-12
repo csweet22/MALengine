@@ -20,6 +20,10 @@ DebugObject::~DebugObject(){
 void DebugObject::Update(){
     if (!CheckEnabled()) {return;}
 
+    // for (auto & child : children){
+    //     DEBUG_ERROR(child->name);
+    // }
+
     // DEBUG_INFO(this->ToString());
     this->Draw();
 }

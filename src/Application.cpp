@@ -95,7 +95,7 @@ void Application::InitImGui(GLFWwindow* _window){
 void Application::SceneSetup(){
 
     Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
-    DebugObject* debugObj = new DebugObject("Debug", glm::vec3(2), glm::vec3(0), glm::vec3(2, 1, 1));
+    DebugObject* debugObj = new DebugObject("Debug", glm::vec3(0), glm::vec3(0), glm::vec3(0.4));
     PlaneMesh* mesh = new PlaneMesh(-4.0, 4.0, 0.2);
     mesh->cam = camera;
     mesh->name = "Plane Mesh";
@@ -115,7 +115,8 @@ void Application::SceneSetup(){
     for(int i = 0; i < boidCount; i++){
         FakeBoid* fb = new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
         // fb->SetParent(debugObj);
-        fb->parent = &(*debugObj);
+        fb->parent = debugObj;
+        debugObj->children.emplace_back(fb);
         mainScene.addGameObject(fb);
     }
 
