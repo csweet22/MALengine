@@ -103,7 +103,7 @@ void Application::SceneSetup(){
 
     Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
     DebugObject* debugObj = new DebugObject("Debug", glm::vec3(0), glm::vec3(0), glm::vec3(0.4));
-    PlaneMesh* mesh = new PlaneMesh(-4.0, 4.0, 0.2);
+    mesh = new PlaneMesh(-4.0, 4.0, 0.2);
     mesh->cam = camera;
     mesh->name = "Plane Mesh";
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
@@ -117,7 +117,7 @@ void Application::SceneSetup(){
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 700;
+    int boidCount = 500;
 
     for(int i = 0; i < boidCount; i++){
         FakeBoid* fb = new FakeBoid("Boyd!", glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
@@ -157,6 +157,7 @@ int Application::Run(){
         if (InputSystem::getInstance().getKeyPress(GLFW_KEY_R, GLFW_PRESS) && pressed){
             pressed = 0;
             camera = cameraList.at((++camIndex) % cameraList.size());
+            mesh->cam = camera;
         }
         if(InputSystem::getInstance().getKeyPress(GLFW_KEY_R, GLFW_RELEASE)){
             pressed = 1;
