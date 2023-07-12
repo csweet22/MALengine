@@ -128,7 +128,7 @@ void Application::SceneSetup(){
         
         FakeBoid* fb2 = new FakeBoid("Boyd!" + std::to_string(i + boidCount), glm::vec3(0), glm::vec3(0), glm::vec3(0.05));
         fb2->parent = fb;
-        debugObj->children.emplace_back(fb2);
+        fb->children.emplace_back(fb2);
         mainScene.addGameObject(fb2);
     }
 
@@ -136,24 +136,28 @@ void Application::SceneSetup(){
 }
 
 void recursiveTreeFill(GameObject* currentObject){
-    // if (currentObject->parent != nullptr){
-        for(auto & child : currentObject->children){
-            if (ImGui::TreeNode(child->name.c_str()))
-            {
-                ImGui::Text("Enabled:");
-                ImGui::SameLine();
-                ImGui::Checkbox("Another Window", &(child->enabled));
-                ImGui::TreePop();
-            }
-        }
-
-        
+    if (ImGui::TreeNode(currentObject->name.c_str())){
+        ImGui::Checkbox("Enabled", &(currentObject->enabled));
         for(auto & child : currentObject->children){
             recursiveTreeFill(child);
         }
-
+        ImGui::TreePop();
         
+    }
+    
 
+    // if (currentObject->children.size() > 0){
+    //     for(auto & child : currentObject->children){
+            // if (ImGui::TreeNode(child->name.c_str()))
+            // {
+            //     // ImGui::Text("Enabled:");
+            //     // ImGui::SameLine();
+            //     ImGui::Checkbox("Enabled", &(child->enabled));
+            //     recursiveTreeFill(child);
+            //     ImGui::TreePop();
+
+    //         }
+    //     }
     // }
      
 }
@@ -223,14 +227,14 @@ int Application::Run(){
                         ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 
                     if(mainScene.getGameObjects()->at(i)->parent == nullptr){
-                        if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
-                        {
-                            ImGui::Text("Enabled:");
-                            ImGui::SameLine();
-                            ImGui::Checkbox("Another Window", &(mainScene.getGameObjects()->at(i)->enabled));
+                        // if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
+                        // {
+                            // ImGui::Text("Enabled:");
+                            // ImGui::SameLine();
+                            // ImGui::Checkbox("Enabled", &(mainScene.getGameObjects()->at(i)->enabled));
                             recursiveTreeFill(mainScene.getGameObjects()->at(i));
-                            ImGui::TreePop();
-                        }
+                            // ImGui::TreePop();
+                        // }
                     }
 
                 }
