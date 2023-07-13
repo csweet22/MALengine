@@ -38,6 +38,9 @@ all: $(EXE)
 $(EXE): $(OBJS)
 	$(CXX) -o $(BIN)/$@ $^ $(CXXFLAGS) $(LIBS)
 
+renderdoc: $(OBJS)
+	$(CXX) -o $(EXE) $^ $(CXXFLAGS) $(LIBS)
+
 clean:
 	rm -f $(BININT)/*.d $(BININT)/*.o
 
