@@ -12,7 +12,7 @@
 	// TODO: add texture quad
 	// setup textures (SAIL image library)
 	// TODO FUTURE: compute shader
-// TODO: imgui abstract it
+// TODO: imgui abstract it (create DockSpace imgui docking branch)
 // TODO: make imgui scene hierarchy show parents and children
 // TODO: enabled is broken for children
 // TODO: able to select objects

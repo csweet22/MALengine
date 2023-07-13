@@ -120,7 +120,7 @@ void Application::SceneSetup(){
     mainScene.addGameObject(grid);
 
 
-    int boidCount = 50;
+    int boidCount = 10;
 
     for(int i = 0; i < boidCount; i++){
         FakeBoid* fb = new FakeBoid("Boyd!" + std::to_string(i), glm::vec3(0), glm::vec3(0), glm::vec3(0.05));

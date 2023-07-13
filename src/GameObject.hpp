@@ -8,7 +8,18 @@ class GameObject {
     GameObject() { this->guid = nextGUID++; }
     virtual void Update() { }
     bool CheckEnabled() { 
+
+
         if (parent != nullptr){
+            GameObject* currentParent = this->parent;
+
+            while(currentParent->parent != nullptr){
+                currentParent = currentParent->parent;
+                if(currentParent->enabled == false){
+                    return false;
+                }
+            }
+
             if(!(parent->enabled)){
                 return false;
             }
