@@ -7,10 +7,10 @@
 // TODO: add physics
 	// TODO: add AABB collision
 // Setup a basic render pipeline
-	// TODO: mesh loader
+	// TODO: mesh loader (assimp)
 	// TODO: add primitives
 	// TODO: add texture quad
-	// setup textures
+	// setup textures (SAIL image library)
 	// TODO FUTURE: compute shader
 // TODO: imgui abstract it
 // TODO: make imgui scene hierarchy show parents and children
