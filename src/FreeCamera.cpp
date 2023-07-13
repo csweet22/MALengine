@@ -53,11 +53,8 @@ void FreeCamera::Update(){
         prevY = 0.0;
     }
 
-    
-    int vpSize[2];
-    glfwGetFramebufferSize(window, &vpSize[0], &vpSize[1]);
 
-	float newaspect = (float)vpSize[0] / (float)vpSize[1];
+	float newaspect = framebuffer->frameWidth / framebuffer->frameHeight;
 
     P = glm::perspective(defaultFov, newaspect, 0.001f, 1000.0f);
 	V = glm::lookAt(eye, eye + camera_dir, glm::vec3(0,1,0)); 

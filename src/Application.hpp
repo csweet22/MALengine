@@ -10,6 +10,7 @@
 #include "Axes.hpp"
 #include "Grid.hpp"
 #include "FakeBoid.hpp"
+#include "Framebuffer.hpp"
 
 
 
@@ -34,7 +35,7 @@ public:
     void InitGLEW();
     void InitGLFW();
     void InitGL();
-    void InitCamera(GLFWwindow* _window);
+    void InitCamera(GLFWwindow* _window, Framebuffer* _framebuffer);
     void InitInput(GLFWwindow* _window);
     void InitImGui(GLFWwindow* _window);
     void SceneSetup();

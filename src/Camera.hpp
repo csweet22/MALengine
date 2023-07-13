@@ -2,6 +2,7 @@
 #define CAMERA_HPP
 
 #include "GlobalIncludes.hpp"
+#include "Framebuffer.hpp"
 
 class Camera
 {
@@ -15,6 +16,7 @@ public:
     float defaultFov = 90.0f;
     float aspect = 1.0f;
     GLFWwindow* window;
+    Framebuffer* framebuffer = nullptr;
     glm::vec3 eye = glm::vec3(1.0);
     glm::vec3 up = glm::vec3(0, 1.0, 0);
     glm::mat4 GetM() { return M; }
