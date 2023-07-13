@@ -10,6 +10,7 @@
 	// TODO: mesh loader (assimp)
 	// TODO: add primitives
 	// TODO: add texture quad
+	// TODO: add LYGIA shader library
 	// setup textures (SAIL image library)
 	// TODO FUTURE: compute shader
 // TODO: imgui abstract it (create DockSpace imgui docking branch)
