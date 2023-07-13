@@ -15,6 +15,7 @@
 // TODO: imgui abstract it
 // TODO: make imgui scene hierarchy show parents and children
 // TODO: enabled is broken for children
+// TODO: able to select objects
 
 int main( int argc, char* argv[])
 {
