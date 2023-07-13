@@ -183,14 +183,7 @@ int Application::Run(){
     SceneSetup();
 
     
-
-
     do{
-
-        // Start the Dear ImGui frame
-        // ImGui_ImplOpenGL3_NewFrame();
-        // ImGui_ImplGlfw_NewFrame();
-        // ImGui::NewFrame();
 
         static int pressed = 1;
 
@@ -203,70 +196,6 @@ int Application::Run(){
             pressed = 1;
         }
 
-        // if (show_demo_window)
-            // ImGui::ShowDemoWindow(&show_demo_window);
-
-        // {
-        //     static float f = 0.0f;
-        //     static int counter = 0;
-
-        //     ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-        //     ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        //     ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        //     ImGui::Checkbox("Another Window", &show_another_window);
-
-        //     ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-        //     ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-        //     if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        //         counter++;
-        //     ImGui::SameLine();
-        //     ImGui::Text("counter = %d", counter);
-
-        //     if (ImGui::TreeNode("Basic trees"))
-        //     {
-        //         GameObject* currObject = mainScene.getGameObjects()->at(0);
-        //         std::vector<GameObject*> rootObjects;
-                
-        //         for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
-        //         {
-        //             if (i == 0)
-        //                 ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-        //             if(mainScene.getGameObjects()->at(i)->parent == nullptr){
-        //                 // if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
-        //                 // {
-        //                     // ImGui::Text("Enabled:");
-        //                     // ImGui::SameLine();
-        //                     // ImGui::Checkbox("Enabled", &(mainScene.getGameObjects()->at(i)->enabled));
-        //                     recursiveTreeFill(mainScene.getGameObjects()->at(i));
-        //                     // ImGui::TreePop();
-        //                 // }
-        //             }
-
-        //         }
-
-        //         // for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
-        //         // {
-        //         //     if (i == 0)
-        //         //         ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-        //         //     if (ImGui::TreeNode(mainScene.getGameObjects()->at(i)->name.c_str()))
-        //         //     {
-        //         //         ImGui::Text("Enabled:");
-        //         //         ImGui::SameLine();
-        //         //         ImGui::Checkbox("Another Window", &(mainScene.getGameObjects()->at(i)->enabled));
-        //         //         ImGui::TreePop();
-        //         //     }
-        //         // }
-        //         ImGui::TreePop();
-        //     }
-
-        //     // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-        //     ImGui::End();
-        // }
-
         glClearColor(0.2, 0.2, 0.2, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // ... as before
@@ -278,6 +207,46 @@ int Application::Run(){
         if (show_demo_window)
             ImGui::ShowDemoWindow(&show_demo_window);
     
+                {
+            static float f = 0.0f;
+            static int counter = 0;
+
+            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+            ImGui::Checkbox("Another Window", &show_another_window);
+
+            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+                counter++;
+            ImGui::SameLine();
+            ImGui::Text("counter = %d", counter);
+
+            if (ImGui::TreeNode("Basic trees"))
+            {
+                GameObject* currObject = mainScene.getGameObjects()->at(0);
+                std::vector<GameObject*> rootObjects;
+                
+                for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
+                {
+                    if (i == 0)
+                        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+
+                    if(mainScene.getGameObjects()->at(i)->parent == nullptr){
+                            recursiveTreeFill(mainScene.getGameObjects()->at(i));
+                    }
+
+                }
+                ImGui::TreePop();
+            }
+
+            // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            ImGui::End();
+        }
+
         // we access the ImGui window size
         const float window_width = ImGui::GetContentRegionAvail().x;
         const float window_height = ImGui::GetContentRegionAvail().y;
@@ -342,7 +311,9 @@ int Application::Run(){
     } while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
         glfwWindowShouldClose(window) == 0 );
 
-    delete camera;
+    for (auto & cam : cameraList){
+        delete cam;
+    }
 
     glfwTerminate();
     
