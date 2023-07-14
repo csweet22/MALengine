@@ -19,6 +19,7 @@
 // TODO: enabled is broken for children
 // TODO: able to select objects
 // TODO: add a gameobject destroy() method, cleans up any parents and child pointers, frees data, removes from scene list.
+// TODO: try to setup raymarching SDFs
 
 int main( int argc, char* argv[])
 {
