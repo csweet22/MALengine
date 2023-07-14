@@ -60,7 +60,7 @@ void main(){
     perlinNoise += (cnoise( vec2(uvs_vs.r * 7.0 - time * 0.3, uvs_vs.g  * 7.0 + time * 0.7) ) + 1.0) / 4.0;
 
     float y_offset = sin( (uvs_vs.x - 0.5) * (uvs_vs.y - 0.5) * 20.0 + time * 2.0) / 4.0;
-    y_offset = perlinNoise;
+    y_offset = perlinNoise - 0.5;
 
     test = vertexPosition_modelspace;
     test.y = test.y + y_offset;
