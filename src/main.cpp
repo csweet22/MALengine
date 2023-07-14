@@ -18,6 +18,7 @@
 // TODO: make imgui scene hierarchy show parents and children
 // TODO: enabled is broken for children
 // TODO: able to select objects
+// TODO: add a gameobject destroy() method, cleans up any parents and child pointers, frees data, removes from scene list.
 
 int main( int argc, char* argv[])
 {
