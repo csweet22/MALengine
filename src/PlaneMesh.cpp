@@ -180,7 +180,18 @@ PlaneMesh::PlaneMesh(float min, float max, float stepsize)
     this->min = min;
     this->max = max;
 
-    planeMeshQuads(min, max, stepsize);
+    double magnitude = abs(min) + abs(max);
+    double recalculated_stepsize = magnitude;
+
+    while (recalculated_stepsize > stepsize){
+        recalculated_stepsize /= 2;
+    }
+
+
+
+
+
+    planeMeshQuads(min, max, recalculated_stepsize);
     numVerts = verts.size()/3;
     numIndices = indices.size();
 
@@ -326,12 +337,10 @@ float PlaneMesh::remap(float input, float iLow, float iHigh, float gLow, float g
     return gLow + (input-iLow)*(gHigh-gLow)/(iHigh-iLow);
 }
 
-void PlaneMesh::planeMeshQuads(float min, float max, float stepsize) {
+void PlaneMesh::planeMeshQuads(double min, double max, double stepsize) {
 
-    int wah = 0;
-
-    for (float x = min; x < max + stepsize; x += stepsize) {
-        for (float z = min; z < max + stepsize; z += stepsize) {
+    for (double x = min; x < max + stepsize; x += stepsize) {
+        for (double z = min; z < max + stepsize; z += stepsize) {
             verts.push_back(x);
             verts.push_back(0.0);
             verts.push_back(z);

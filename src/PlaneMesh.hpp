@@ -48,7 +48,7 @@ public:
     void setupVAO();
     void setShaderID(GLuint programID);
     float remap(float input, float iLow, float iHigh, float gLow, float gHigh);
-	void planeMeshQuads(float min, float max, float stepsize);
+	void planeMeshQuads(double min, double max, double stepsize);
     void Draw();
     void Update();
     Camera* cam;
