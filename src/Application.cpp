@@ -90,6 +90,8 @@ void Application::InitImGui(GLFWwindow* _window){
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
+    appFramerate = &(io.Framerate);
+
     // // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     // //ImGui::StyleColorsLight();
@@ -111,7 +113,6 @@ void Application::SceneSetup(){
     mesh->name = "Plane Mesh";
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
     Grid* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
-    // axes->enabled = false;
 
     // mainScene.addGameObject(player);
     mainScene.addGameObject(debugObj);
@@ -143,25 +144,8 @@ void recursiveTreeFill(GameObject* currentObject){
         for(auto & child : currentObject->children){
             recursiveTreeFill(child);
         }
-        ImGui::TreePop();
-        
+        ImGui::TreePop();   
     }
-    
-
-    // if (currentObject->children.size() > 0){
-    //     for(auto & child : currentObject->children){
-            // if (ImGui::TreeNode(child->name.c_str()))
-            // {
-            //     // ImGui::Text("Enabled:");
-            //     // ImGui::SameLine();
-            //     ImGui::Checkbox("Enabled", &(child->enabled));
-            //     recursiveTreeFill(child);
-            //     ImGui::TreePop();
-
-    //         }
-    //     }
-    // }
-     
 }
 
 int Application::Run(){
@@ -207,43 +191,38 @@ int Application::Run(){
         if (show_demo_window)
             ImGui::ShowDemoWindow(&show_demo_window);
     
-                {
+        {
             static float f = 0.0f;
             static int counter = 0;
 
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+            ImGui::Begin("Scene Info");                          // Create a window called "Hello, world!" and append into it.
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / *appFramerate, *appFramerate);
 
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+            // ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
+            // ImGui::Checkbox("Another Window", &show_another_window);
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            // ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
+            // if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+                // counter++;
+            // ImGui::SameLine();
+            // ImGui::Text("counter = %d", counter);
 
-            if (ImGui::TreeNode("Basic trees"))
+            ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+            if (ImGui::TreeNode("Scene Hierarchy"))
             {
                 GameObject* currObject = mainScene.getGameObjects()->at(0);
                 std::vector<GameObject*> rootObjects;
-                
                 for (int i = 0; i < mainScene.getGameObjects()->size(); i++)
                 {
-                    if (i == 0)
-                        ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
                     if(mainScene.getGameObjects()->at(i)->parent == nullptr){
                             recursiveTreeFill(mainScene.getGameObjects()->at(i));
                     }
-
                 }
                 ImGui::TreePop();
             }
-
-            // ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
 

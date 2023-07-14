@@ -11,7 +11,8 @@
 	// TODO: add primitives
 	// TODO: add texture quad
 	// TODO: add LYGIA shader library
-	// setup textures (SAIL image library)
+	// TODO: setup textures (SAIL image library)
+	// TODO: abstract shaders somehow so that you can create instances of them and edit uniforms.
 	// TODO FUTURE: compute shader
 // TODO: imgui abstract it (create DockSpace imgui docking branch)
 // TODO: make imgui scene hierarchy show parents and children
