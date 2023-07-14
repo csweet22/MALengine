@@ -13,20 +13,20 @@ FreeCamera::~FreeCamera(){
 
 void FreeCamera::Update(){
 
-    float speed = 0.005f;
+    float speed = 0.05f;
     glm::vec3 right = glm::cross(camera_dir, up);
 
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_W, GLFW_PRESS)){
-        eye = eye + camera_dir * speed;
+        eye = eye +  glm::normalize(camera_dir) * speed;
     }
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_S, GLFW_PRESS)){
-        eye = eye - camera_dir * speed;
+        eye = eye - glm::normalize(camera_dir) * speed;
     }
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_A, GLFW_PRESS)){
-        eye = eye - right * speed;
+        eye = eye - glm::normalize(right) * speed;
     }
     if (InputSystem::getInstance().getKeyPress(GLFW_KEY_D, GLFW_PRESS)){
-        eye = eye + right * speed;
+        eye = eye + glm::normalize(right) * speed;
     }
 
     
