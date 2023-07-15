@@ -210,6 +210,11 @@ int Application::Run(){
             // ImGui::SameLine();
             // ImGui::Text("counter = %d", counter);
 
+    if (ImGui::Button("Time Step")){
+            Time::getInstance().UpdateDeltaTime();
+            Time::getInstance().UpdateTime();
+        }
+
             ImGui::SetNextItemOpen(true, ImGuiCond_Once);
             if (ImGui::TreeNode("Scene Hierarchy"))
             {
@@ -284,7 +289,8 @@ int Application::Run(){
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        Time::getInstance().UpdateDeltaTime();
+        
+
 
 
     } while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
