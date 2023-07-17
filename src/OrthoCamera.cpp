@@ -43,8 +43,11 @@ void OrthoCamera::Update(){
 	float newaspect = framebuffer->frameWidth / framebuffer->frameHeight;
 
     // P = glm::perspective(0.0001f, newaspect, 0.001f, 1000000000.0f);
-	P = glm::ortho(-(50.0f / 2.0f) * eye.z, 50.0f / 2.0f  * eye.z, 
-        -30.0f / 2.0f  * eye.z, (30.0f / 2.0f)  * eye.z, 
+	P = glm::ortho(
+		-(50.0f) * newaspect * eye.z, 
+		50.0f * newaspect * eye.z, 
+        -50.0f  * eye.z,
+		(50.0f)  * eye.z, 
       -10000.0f, 10000.0f);
 	V = glm::lookAt(eye, eye + camera_dir, glm::vec3(0,1,0)); 
 }

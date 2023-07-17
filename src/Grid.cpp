@@ -29,7 +29,7 @@ void Grid::Draw() {
     float scale = 1.0;
     glBegin(GL_LINES);
     
-        glColor4f(0.0, 0.0, 0.0, 0.2);
+        glColor4f(0.0, 0.0, 0.0, 0.1);
         for(int x = -1 * (segments -1); x < segments; x++){
             for(int z = -1 * (segments -1); z < segments; z++){
                 
