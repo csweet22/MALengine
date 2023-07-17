@@ -25,15 +25,17 @@ void Grid::Update(){
 
 void Grid::Draw() {
     if (!CheckEnabled()) {return;}
-    int segments = 5;
+    int xsegments = 5;
+    int ysegments = 1;
+    int zsegments = 5;
     float scale = 1.0;
     glBegin(GL_LINES);
     
         glColor4f(0.0, 0.0, 0.0, 0.1);
-        for(int x = -1 * (segments -1); x < segments; x++){
-            for(int z = -1 * (segments -1); z < segments; z++){
+        for(int x = -1 * (xsegments -1); x < xsegments; x++){
+            for(int z = -1 * (zsegments -1); z < zsegments; z++){
                 
-                for(int y = -1 * (segments -1); y < segments; y++){
+                for(int y = -1 * (ysegments -1); y < ysegments; y++){
                     glVertex3f(x, y, -1 * z);
                     glVertex3f(x, y, z);
                     
