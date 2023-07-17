@@ -36,8 +36,8 @@ void OrthoCamera::Update(){
         eye = eye + glm::vec3(0, 0, -1) * speed;
     }
 
-	if (eye.z < 0.1){
-		eye.z = 0.1;
+	if (eye.z < 0.01){
+		eye.z = 0.01;
 	}
 
 	float newaspect = framebuffer->frameWidth / framebuffer->frameHeight;

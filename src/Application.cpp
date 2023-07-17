@@ -127,11 +127,6 @@ void Application::SceneSetup(){
     mainScene.addGameObject(mesh);
     mainScene.addGameObject(axes);
     mainScene.addGameObject(grid);
-
-
-    Object* object1 = new Object();
-    object1->name = "obj1";
-    mainScene.addGameObject(object1);
     
     int boidCount = 50;
 
