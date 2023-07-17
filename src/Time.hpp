@@ -13,7 +13,7 @@ class Time
             return deltaTime;
         }
         double GetTime(){            
-            return time;
+            return glfwGetTime();
         }
         void UpdateDeltaTime(){
             double currentTime = glfwGetTime();

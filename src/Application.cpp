@@ -62,6 +62,12 @@ void Application::InitGL(){
 }
 
 void Application::InitCamera(GLFWwindow* _window, Framebuffer* _framebuffer){
+
+    Camera* orthoc = new OrthoCamera();
+    orthoc->window = _window;
+    orthoc->framebuffer = _framebuffer;
+    cameraList.emplace_back(orthoc);
+
     Camera* fc = new FreeCamera();
     fc->window = _window;
     fc->framebuffer = _framebuffer;
@@ -71,6 +77,8 @@ void Application::InitCamera(GLFWwindow* _window, Framebuffer* _framebuffer){
     oc->window = _window;
     oc->framebuffer = _framebuffer;
     cameraList.emplace_back(oc);
+    
+
     
     camera = cameraList.at(camIndex);
     camera->window = _window;
@@ -105,7 +113,7 @@ void Application::InitImGui(GLFWwindow* _window){
 
 void Application::SceneSetup(){
 
-    Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
+    // Player* player = new Player("Player", glm::vec3(0), glm::vec3(0), glm::vec3(1.0));
     DebugObject* debugObj = new DebugObject("Debug", glm::vec3(0), glm::vec3(0), glm::vec3(0.4));
     mesh = new PlaneMesh(-4.0, 4.0, 0.05);
     // mesh = new SphereMesh(4, 32, 32);
@@ -114,13 +122,17 @@ void Application::SceneSetup(){
     Axes* axes = new Axes("Axes", glm::vec3(0), glm::vec3(0), glm::vec3(2));
     Grid* grid = new Grid("Grid", glm::vec3(0), glm::vec3(0), glm::vec3(2));
 
-    // mainScene.addGameObject(player);
+    // // mainScene.addGameObject(player);
     mainScene.addGameObject(debugObj);
     mainScene.addGameObject(mesh);
     mainScene.addGameObject(axes);
     mainScene.addGameObject(grid);
 
 
+    Object* object1 = new Object();
+    object1->name = "obj1";
+    mainScene.addGameObject(object1);
+    
     int boidCount = 50;
 
     for(int i = 0; i < boidCount; i++){
@@ -210,10 +222,10 @@ int Application::Run(){
             // ImGui::SameLine();
             // ImGui::Text("counter = %d", counter);
 
-    if (ImGui::Button("Time Step")){
+    // if (ImGui::Button("Time Step")){
             Time::getInstance().UpdateDeltaTime();
             Time::getInstance().UpdateTime();
-        }
+        // }
 
             ImGui::SetNextItemOpen(true, ImGuiCond_Once);
             if (ImGui::TreeNode("Scene Hierarchy"))
@@ -278,6 +290,7 @@ int Application::Run(){
 
         camera->Update();
         mainScene.Update();
+        mainScene.Draw();
         // DEBUG_INFO( std::to_string( Time::getInstance().GetDeltaTime() ) );
 
         framebuffer.UnbindFramebuffer();

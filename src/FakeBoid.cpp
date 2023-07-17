@@ -47,12 +47,12 @@ void FakeBoid::Update(){
         amount = 0.0;
     }
 
-    this->Draw();
 }
 
 
 void FakeBoid::Draw() {
 
+    if (!CheckEnabled()) {return;}
     glm::vec3 point1 = glm::vec3( -1 * scale.x, -1 * scale.y, 0);
     glm::vec3 point2 = glm::vec3( scale.x, -1 * scale.y, 0);
     glm::vec3 point3 = glm::vec3(0, scale.y, 0);

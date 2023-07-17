@@ -10,6 +10,7 @@ class Scene{
         std::vector<GameObject*>* getGameObjects();
         void addGameObject(GameObject* obj);
         void Update();
+        void Draw();
 };
 
 #endif

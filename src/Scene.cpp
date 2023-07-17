@@ -28,3 +28,10 @@ void Scene::Update(){
         gameObject->Update();
     }
 }
+
+void Scene::Draw(){   
+    for (auto & gameObject : gameObjects) 
+    {
+        gameObject->Draw();
+    }
+}

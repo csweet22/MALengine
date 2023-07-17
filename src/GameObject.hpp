@@ -6,7 +6,9 @@
 class GameObject {
     public:
     GameObject() { this->guid = nextGUID++; }
-    virtual void Update() { }
+    ~GameObject() {}
+    virtual void Update() {}
+    virtual void Draw() {}
     bool CheckEnabled() { 
 
 

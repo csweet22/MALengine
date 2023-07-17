@@ -20,11 +20,11 @@ Axes::~Axes(){
 void Axes::Update(){
     if (!CheckEnabled()) {return;}
     // DEBUG_INFO(this->ToString());
-    this->Draw();
 }
 
 
 void Axes::Draw() {
+    if (!CheckEnabled()) {return;}
     glBegin(GL_LINES);
     
         glColor3f(1.0, 0.0, 0.0);

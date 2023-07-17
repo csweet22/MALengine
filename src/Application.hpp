@@ -6,11 +6,13 @@
 #include "PlaneMesh.hpp"
 #include "SphereMesh.hpp"
 #include "OrbitalCamera.hpp"
+#include "OrthoCamera.hpp"
 #include "FreeCamera.hpp"
 #include "Axes.hpp"
 #include "Grid.hpp"
 #include "FakeBoid.hpp"
 #include "Framebuffer.hpp"
+#include "Object.hpp"
 
 
 
