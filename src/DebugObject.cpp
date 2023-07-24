@@ -20,16 +20,11 @@ DebugObject::~DebugObject(){
 void DebugObject::Update(){
     if (!CheckEnabled()) {return;}
 
-    // for (auto & child : children){
-    //     DEBUG_ERROR(child->name);
-    // }
-
-    // DEBUG_INFO(this->ToString());
-    this->Draw();
 }
 
 
 void DebugObject::Draw() {
+    if (!CheckEnabled()) {return;}
     glColor3f(1.0, 0.0, 0.0);
 
     glBegin(GL_LINES);
