@@ -14,6 +14,7 @@
 	// TODO: setup textures (SAIL image library)
 	// TODO: abstract shaders somehow so that you can create instances of them and edit uniforms.
 	// TODO FUTURE: compute shader
+	// TODO: Frustrum culling
 // TODO: imgui abstract it (create DockSpace imgui docking branch)
 // TODO: able to select objects, create a gameobject inspector
 // TODO: add a gameobject destroy() method, cleans up any parents and child pointers, frees data, removes from scene list.

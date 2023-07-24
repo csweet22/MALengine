@@ -15,6 +15,7 @@
 #include "GameObject.hpp"
 #include "GlobalIncludes.hpp"
 #include "Camera.hpp"
+#include "shader.hpp"
 
 // Class that creates Texture Objects, VBOs, VAO, for a single ply and single bmp file.
 // This also provides a draw() method for the main draw-loop to call.
